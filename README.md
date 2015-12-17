@@ -2,7 +2,8 @@
 NeoPixel Control
 
 ### Version
-3.2.0
+- LightFunctions.ino 1.1.0
+- LightFade.ino      1.1.0
 
 ### Installation
 
@@ -15,8 +16,4 @@ $ apt-get install arduino
 
 
 ### To do
-
- - Write Tests
- - Rethink Github Save
- - Add Code Comments
- - Add Night Mode
+ - Add Support for Raspberry Pi serial connection
