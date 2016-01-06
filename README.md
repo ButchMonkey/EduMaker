@@ -2,8 +2,8 @@
 NeoPixel Control
 
 ### Version
-- LightFunctions.ino 1.1.0
-- LightFade.ino      1.1.0
+- LightFunctions.ino v1.1.1
+- LightFade.ino      v1.1.0
 
 ### Installation
 
