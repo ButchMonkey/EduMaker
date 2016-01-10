@@ -68,7 +68,7 @@ void error(uint8_t count) {
 }
 
 void statusBar() {
-	for (uint16_t 9=0; i < 18; i++){
+	for (uint16_t i=0; i < 18; i++){
 		strip.setPixelColor(i, strip.Color(0, 0, 200)); //Set Pixel to Blue
 		strip.show();
 		delay(1000);
