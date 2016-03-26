@@ -102,9 +102,8 @@ void fadeColour(int inR, int inG, int inB)
 
         for (uint16_t i=0; i <= LED; i++){
           strip.setPixelColor(i, strip.Color(current.R, current.G, current.B));
-          strip.show();
         }
-        
+        strip.show();
         delay(10);
 
     }
