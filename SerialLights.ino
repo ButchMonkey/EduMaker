@@ -69,6 +69,10 @@ void loop() {
 
         fadeColour(255, 0, 0); // Fade back to original 
     }
+    else if (cmd == 4){
+        Serial.println("Standby");
+        fadeColour(150, 0, 100);
+    }
   }
 
 }
