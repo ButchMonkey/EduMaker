@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#warm {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    border-color: black;
+    border: 5px solid;
+	animation-name: example;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#warmClick {
+    width: 100px;
+    height: 50px;
+    background-color: gray;
+    border-color: black;
+    border: 5px solid;
+    text-align: center;
+}
+
+#stopClick {
+    width: 100px;
+    height: 50px;
+    background-color: gray;
+    border-color: black;
+    border: 5px solid;
+    text-align: center;
+}
+
+body {
+    background-color: darkgray;
+    font-family: Verdana;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes warm {
+    0%   {border-color:#fd6c02; left:0px; top:0px;}
+    100%  {border-color:#fcab03; left:200px; top:0px;}
+}
+
+/* Standard syntax */
+@keyframes warm {
+    0%   {border-color:#fd6c02; left:0px; top:0px;}
+    100%  {border-color:#fcab03; left:200px; top:0px;}
+}
+</style>
+
+<script type="text/javascript">
+	function changeAnim() {
+		document.getElementById('warm').style.animationName = "warm"
+	}
+
+	function stopAnim() {
+		document.getElementById('warm').style.animationName = ""
+	}
+
+</script>
+
+</head>
+<body>
+<div id="warm"></div>
+<br />
+<div id="warmClick" onclick="changeAnim()">Warm Up </div>
+<br />
+<div id="stopClick" onclick="stopAnim()">Stop </div>
+</body>
+</html>
+
