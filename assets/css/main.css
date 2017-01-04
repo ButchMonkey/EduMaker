@@ -1,0 +1,165 @@
+.win-commandicon {
+  display: table-cell !important;
+  vertical-align: middle !important;
+  font-size: 10vw;
+  color: #0099CC;
+}
+
+.material-icons {
+  display: table-cell !important;
+  vertical-align: middle !important;
+  font-size: 10vw;
+  color: #0099CC;
+}
+
+svg {
+  width:10vw;
+}
+
+.tile {
+  text-align: center !important;
+  width: 20vw !important;
+  height: 20vw !important;
+  display: table !important;
+  margin: 1vw !important;
+}
+
+.container {
+  margin: auto !important;
+}
+
+body {
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  line-height:0
+}
+
+a {
+  margin: auto;
+  display: inline-block;
+}
+
+.mini-wrap {
+  margin: auto;
+  display: inline-block;
+}
+
+.row-fluid {
+  text-align: center;
+}
+
+.bar {
+  font-size: 1vw !important;
+  padding: 0.5em;
+}
+
+.wrapper {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+}
+
+#header {
+  width: 100vw;
+  height: 10vh;
+  font-size: 5vh;
+  background-color: black;
+  color: white;
+  position: fixed;
+  top: 0;
+  display: table;
+}
+
+#footer {
+  width: 100vw;
+  height: 10vh;
+  font-size: 5vh;
+  background-color: black;
+  color: white;
+  position: fixed;
+  top: 90vh;
+  display: table;
+}
+
+.main {
+  display: table;
+  width: 100vw;
+  height: 100vh
+}
+
+.alert {
+  z-index: 200;
+  width: 50vw;
+  height: 25vh;
+  top: 35vh;
+  left: 25vw;
+  position: fixed;
+}
+
+#innerHead {
+  padding: 2vh;
+  font-size: 5vh;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#innerFoot {
+  padding: 2vh;
+  font-size: 5vh;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#info {
+  width: 42.5vw !important;
+}
+
+.mini-tile {
+  width:48%;
+  height:48%;
+  display:inline-table;
+  margin:1%;
+  text-align: center !important;
+  background-color: #555555 !important;
+}
+
+.mini-tile:hover {
+  outline: 3px #0099CC solid;
+}
+
+.mini-icon {
+  font-size: 5vw !important;
+}
+
+.mtContainer:hover {
+ outline:none !important; 
+}
+
+#print{
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@-webkit-keyframes warm {
+    0%   {outline:3px #fd6c02 solid}
+    100%  {outline:3px #fcab03 solid}
+}
+
+/* Standard syntax */
+@keyframes warm {
+    0%   {outline:3px #fd6c02 solid}
+    100%  {outline:3px #fcab03 solid}
+}
+
+#myModal {
+ width:90vw; 
+ height:40vw; 
+}
+
+#footerError{
+  font-size: 2vw
+}

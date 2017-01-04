@@ -1,0 +1,63 @@
+<div id="header">
+    <div id="innerHead">{{title}}
+        <div id="tempControls" style="float:right">
+                E: <span id="exa" class="actual_temp">0.0</span> / <span id="ext" class="target_temp">0.0</span>&nbsp;
+                B: <span id="bea" class="actual_temp">0.0</span> / <span id="bet" class="target_temp">0.0</span>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="wrapper">
+        <div class="row-fluid metro" style="/* margin: 0; *//* display: none; */">
+            <div style="height: 42.5vw;width: 22vw;display: inline-block;">
+               <div style="height:0px;overflow:hidden"><input type="file" id="fileInput" name="fileInput" accept=".gcode" onchange="alert('Uploading'); VisPrinter.load(this.files[0])" /></div>
+                <a onclick="$('#fileInput').click();" href="{{icons.0.href}}">
+                    <div class="bg-color-gray tile square" style="margin-top: 0px !important;">
+                        <span class="win-commandicon icon-{{icons.0.icon}}"></span>
+                        <span style="display: table-caption;position: relative;top: 17vw;font-size: 2vw;color: #0099CC;">{{icons.0.name}}</span>
+                    </div>
+                </a>
+                <a href="{{icons.1.href}}">
+                    <div class="bg-color-gray tile square">
+                        <span class="win-commandicon icon-{{icons.1.icon}}"></span>
+                        <span style="display: table-caption;position: relative;top: 17vw;font-size: 2vw;color: #0099CC;">{{icons.1.name}}</span>
+                    </div>
+                </a>
+            </div>
+            <a href="{{icons.2.href}}" ng-click="gcode(icons.2.gcode)">
+                <div id="print" class="bg-color-gray tile square" style="width: 42.5vw !important;height: 42.2vw !important;">
+                    <span class="win-commandicon icon-{{icons.2.icon}}" style="font-size: 20vw !important;"></span>
+                    <span style="display: table-caption;position: relative;top: 35vw;font-size: 4vw;color: #0099CC;">{{icons.2.name}}</span>
+                </div>
+            </a>
+            <div style="height: 22vw;width: 22vw;display: inline-block;">
+                <a href="{{icons.3.href}}">
+                    <div class="bg-color-gray tile square">
+                        <span class="win-commandicon icon-{{icons.3.icon}}"></span>
+                        <span style="display: table-caption;position: relative;top: 17vw;font-size: 2vw;color: #0099CC;">{{icons.3.name}}</span>
+                    </div>
+                </a>
+                <a href="{{icons.4.href}}" onclick="$('#myModal').modal('show')">
+                    <div class="bg-color-gray tile square">
+                        <span class="win-commandicon icon-{{icons.4.icon}}"></span>
+                        <span style="display: table-caption;position: relative;top: 17vw;font-size: 2vw;color: #0099CC;">{{icons.4.name}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row-fluid metro">
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <!--<div class="progress" style="width: 87vw;margin: 2vw auto;">-->
+    <!--    <div class="bar" style="width: {{preheatProgress}}; height:2vw;background-color:#F02626;padding: 1vw 0 0 0;">Pre-Heating {{preheatProgress}}</div>-->
+    <!--    <div class="bar" style="width: {{printProgress}}; height:2vw;padding-top: 1vw;">Printing {{printProgress}}</div>-->
+    <!--</div>-->
+    
+    <div id="innerFoot">
+        <div id="connectionButtons"></div>
+       {{errorMsg}}&nbsp;
+       <span style="float:right; font-size:1.5vw">{{rights}}&nbsp;</span>
+    </div>
+</div>

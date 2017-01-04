@@ -1,69 +1,99 @@
-<!doctype html>
+<html ng-app="printerface">
+    <head>
+        <meta charset="utf-8" />
+        <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <!-- Mobile viewport optimized: h5bp.com/viewport -->
+        <meta name="viewport" content="width=device-width">
+    
+    	<title>EduMaker</title>
+        <!-- SCROLLS -->
+        <!-- load bootstrap and fontawesome via CDN -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+    
+        <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-responsive.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-icons.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-ui-light.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/keyboard.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+    
+        <!-- SPELLS -->
+        <!-- load angular and angular route via CDN -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+        <script src="script.js"></script>
+        <script type="text/javascript" src="./assets/js/jquery-1.10.0.min.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap.js"></script>
+        <script type="text/javascript" src="./assets/js/keyboard.js"></script>
+        <script src="http://edumaker-angular-butchmonkey.c9users.io:8081/target/target-script-min.js"></script>
+    </head>
 
-<html>
+    <body ng-controller="mainController" class="bg-color-darken" onLoad="VisPrinter.attach();VisPrinter.connect();">
+    <div id="container">
+	<!--<ul id="keyboard">-->
+	<!--	<li class="symbol"><span class="off">`</span><span class="on">~</span></li>-->
+	<!--	<li class="symbol"><span class="off">1</span><span class="on">!</span></li>-->
+	<!--	<li class="symbol"><span class="off">2</span><span class="on">@</span></li>-->
+	<!--	<li class="symbol"><span class="off">3</span><span class="on">#</span></li>-->
+	<!--	<li class="symbol"><span class="off">4</span><span class="on">$</span></li>-->
+	<!--	<li class="symbol"><span class="off">5</span><span class="on">%</span></li>-->
+	<!--	<li class="symbol"><span class="off">6</span><span class="on">^</span></li>-->
+	<!--	<li class="symbol"><span class="off">7</span><span class="on">&amp;</span></li>-->
+	<!--	<li class="symbol"><span class="off">8</span><span class="on">*</span></li>-->
+	<!--	<li class="symbol"><span class="off">9</span><span class="on">(</span></li>-->
+	<!--	<li class="symbol"><span class="off">0</span><span class="on">)</span></li>-->
+	<!--	<li class="symbol"><span class="off">-</span><span class="on">_</span></li>-->
+	<!--	<li class="symbol"><span class="off">=</span><span class="on">+</span></li>-->
+	<!--	<li class="delete lastitem">delete</li>-->
+	<!--	<li class="tab">tab</li>-->
+	<!--	<li class="letter">q</li>-->
+	<!--	<li class="letter">w</li>-->
+	<!--	<li class="letter">e</li>-->
+	<!--	<li class="letter">r</li>-->
+	<!--	<li class="letter">t</li>-->
+	<!--	<li class="letter">y</li>-->
+	<!--	<li class="letter">u</li>-->
+	<!--	<li class="letter">i</li>-->
+	<!--	<li class="letter">o</li>-->
+	<!--	<li class="letter">p</li>-->
+	<!--	<li class="symbol"><span class="off">[</span><span class="on">{</span></li>-->
+	<!--	<li class="symbol"><span class="off">]</span><span class="on">}</span></li>-->
+	<!--	<li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>-->
+	<!--	<li class="capslock">caps lock</li>-->
+	<!--	<li class="letter">a</li>-->
+	<!--	<li class="letter">s</li>-->
+	<!--	<li class="letter">d</li>-->
+	<!--	<li class="letter">f</li>-->
+	<!--	<li class="letter">g</li>-->
+	<!--	<li class="letter">h</li>-->
+	<!--	<li class="letter">j</li>-->
+	<!--	<li class="letter">k</li>-->
+	<!--	<li class="letter">l</li>-->
+	<!--	<li class="symbol"><span class="off">;</span><span class="on">:</span></li>-->
+	<!--	<li class="symbol"><span class="off">'</span><span class="on">&quot;</span></li>-->
+	<!--	<li class="return lastitem">return</li>-->
+	<!--	<li class="left-shift">shift</li>-->
+	<!--	<li class="letter">z</li>-->
+	<!--	<li class="letter">x</li>-->
+	<!--	<li class="letter">c</li>-->
+	<!--	<li class="letter">v</li>-->
+	<!--	<li class="letter">b</li>-->
+	<!--	<li class="letter">n</li>-->
+	<!--	<li class="letter">m</li>-->
+	<!--	<li class="symbol"><span class="off">,</span><span class="on">&lt;</span></li>-->
+	<!--	<li class="symbol"><span class="off">.</span><span class="on">&gt;</span></li>-->
+	<!--	<li class="symbol"><span class="off">/</span><span class="on">?</span></li>-->
+	<!--	<li class="right-shift lastitem">shift</li>-->
+	<!--	<li class="space lastitem">&nbsp;</li>-->
+	<!--</ul>-->
+        <!-- MAIN CONTENT AND INJECTED VIEWS -->
+        <div id="main">
+            <div ng-view></div>
+        </div>
+	</div>
+	<div id="console" style="display:none"></div>
+    </body>
 
-<head>
-	<title>Vis/Printer</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf8">
-	<script src="Viewer.js"></script>
-	<script src="lightgl.js"></script>
-	<script src="VisPrinter.js"></script>
-	<link rel="stylesheet" type="text/css" href="base.css">	
-</head>
-<body>
-		<style id=connectionStyle></style>
-		<style id=slicingStyle>.sliced{visibility: hidden;}</style>
-		<style id=stateStyle></style>
-		<div class=treePane><textarea class=console id="console"></textarea></div>
-		<div class=menuPane>
-			<form onsubmit="return false">
-				<h2>connect printer</h2>
-				<span class=not_online>not connected</span><span class=online>connected</span> <button onclick="VisPrinter.cmd('reset')"   title="reset the printer">reset</button>
-			</form>
-			<form class=online onsubmit="VisPrinter.cmd(this.cmd.value); return false;" ><h2>send gcode</h2>&gt;<input name=cmd title="issue command by pressing <enter>"></form>
-			<form class=online onsubmit="return false;">
-				<h2>move and calibrate</h2> 
-				X<input name=X size=2> Y<input name=Y size=2> Z<input name=Z size=2> E<input name=E size=2>
-				<button onclick="VisPrinter.goto(this.parentNode)" title="go to entered position">go</button>
-				<button onclick="VisPrinter.cmd('G1 X0 Y0 Z0')" title="go to X0 Y0 Z0">origin</button><button onclick="VisPrinter.cmd('G28')" title="calibrate home position">home</button>
-			</form>
-			<form class=online onsubmit="return false;">
-				<h2>heating</h2> 
-				extruder<input name=t_extruder size=2> bed<input name=t_bed size=2> 
-				<button onclick="VisPrinter.cmd('M104 S'+this.parentNode.t_extruder.value); VisPrinter.cmd('M140 S'+this.parentNode.t_bed.value)">set</button>
-				<button onclick="VisPrinter.cmd('M104 S0'); VisPrinter.cmd('M140 S0')" title="stop heating">off</button>
-			</form>
-			<form onsubmit="return false">
-				<h2>load</h2>
-				<input caption=Import name=stl type=file onchange="VisPrinter.load(this.files[0])">
-				<button onclick="VisPrinter.load(this.parentNode.stl.files[0])" title="load this file again">reload</button>
-			</form>
-			<form onsubmit="return false">
-				<h2>slice</h2>
-				<select name=config id=config></select> 
-				<button onclick="VisPrinter.editConfig()" title="edit current settings">edit</button>
-				<button onclick="VisPrinter.slice()" title="slice this object according to current settings">slice</button>
-			</form>
-			<form class=online onsubmit="return false">
-				<h2>print</h2>
-				<button onclick="VisPrinter.prepare()" title="prepare printer for printing (optional)">prepare</button>
-				<button onclick="VisPrinter.print()"  class=sliced  title="print this object">print</button>
-				<button onclick="VisPrinter.cmd('pause')"   title="pause printing">pause</button>
-				<button onclick="VisPrinter.cmd('resume')"   title="resume a paused printing">resume</button>
-				<button onclick="VisPrinter.eject()"   title="cancel print and eject object">eject</button>
-				<br>
-				<span id=status></span>
-			</form>
-		</div>
-		<div id=view class="view" ></div>
-		<div class=logo>
-			Vis/Printer - http://hirnsohle.de/VisPrinter/ - © 2012 Paul Geisler - 
-			<a href="README.html">Manual - Credits - Examples</a>
-		</div>
-		<div id=progress><div><div id=progressBar><span id=progressName></span></div></div><a class=cancel href='javascript:VisPrinter.cancel()'>cancel</a></div>
-	<script>
-		VisPrinter.attach();
-	</script>
-</body>
 </html>
-
