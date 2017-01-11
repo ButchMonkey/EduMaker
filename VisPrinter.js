@@ -3,7 +3,7 @@
 function getCookieValue(cookieName)
 {
    var value = null;
-   if (document.cookie != "")
+   if (document.cookie !== "")
    {
       cookieName = cookieName + "=";
 
@@ -184,7 +184,7 @@ VisPrinter = new function(){
        window.setTimeout(function(e) {
            VisPrinter.checkState();
        }, 1000);
-   }
+   };
 
    // callback to handle a state report from the server
    this.onState = function(response)
@@ -209,7 +209,7 @@ VisPrinter = new function(){
        }
        var stateElement = document.getElementById('stateStyle');
        if (stateStyle !== stateElement.innerHTML) stateElement.innerHTML = stateStyle;
-   }
+   };
 
    // handle a progress change
    this.onProgress = function(response)
@@ -476,7 +476,8 @@ VisPrinter = new function(){
    // attach this VisPrinter controller to a HTML UI
    // the html need to provide several UI elements and classes
    // see index.html 
-   this.attach = function() {
+   this.attach = function()
+   {
        //WEBGL NOT WORKING ON PI
        //		var canvas = document.getElementById('gltest');
        //		try { gltest = canvas.getContext("webgl"); }
