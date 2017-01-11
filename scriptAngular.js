@@ -108,22 +108,24 @@ printerface.controller('mainController', function ($scope, progress) {
    };
 
    function setStatus() {
-      // if(!VisPrinter.connnected){
+      // if(!Printer.connnected){
       if (true) {
-         VisPrinter.cmd('connect');
-         VisPrinter.check();
-         //return "<button class='btn' onclick='alert(\"Connecting\");VisPrinter.connect();'>Connect</button>";
+         Printer.cmd('connect');
+         Printer.check();
+         //return "<button class='btn' onclick='alert(\"Connecting\");Printer.connect();'>Connect</button>";
       } else {
-         //VisPrinter.cmd('disconnect')
+         //Printer.cmd('disconnect')
          //return "<button class='btn' onclick='alert(\"Disconnecting\")'>Disconnect</button>";
       }
    }
 
+   //This doesnt need to be here?
+   // can we make this a service?
    $scope.gcode = function (gcode, axis, distance) {
       switch (gcode) {
          case "print":
             console.log('Print');
-            VisPrinter.print();
+            Printer.print();
             break;
          case "cancel":
             console.log('Cancel');
@@ -135,14 +137,14 @@ printerface.controller('mainController', function ($scope, progress) {
                alert("Undefined Variable in Move command")
             }
             var feed = '';
-            VisPrinter.cmd('G91');
+            Printer.cmd('G91');
             if (axis == 'Z') {
                feed = '300';
             } else {
                feed = '3000';
             }
             window.setTimeout(function () {
-               VisPrinter.cmd('G1 ' + axis + distance + ' F' + feed)
+               Printer.cmd('G1 ' + axis + distance + ' F' + feed)
             }, 50);
             break;
          case "heat":
@@ -156,7 +158,7 @@ printerface.controller('mainController', function ($scope, progress) {
             break;
          default:
             if (gcode) {
-               VisPrinter.cmd(gcode);
+               Printer.cmd(gcode);
             }
             break;
 
@@ -174,8 +176,8 @@ printerface.controller('mainController', function ($scope, progress) {
 
       $('#connectionButtons').html(setStatus());
 
-      VisPrinter.attach();
-      VisPrinter.connect();
+      Printer.attach();
+      Printer.connect();
 
 
 
