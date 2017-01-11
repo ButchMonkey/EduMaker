@@ -8,3 +8,14 @@
                                                
  ----------------------------------------------------------------- 
 ```
+
+                                
+### To Do List
+* Change namespace to "printerface"
+* Convert to angular to allow use of scope variables
+  * Keep a back up of the old version to support non angular
+* Edit python scripts to return meaningful data
+* Add console for viewing data back from the printer ( and send log as email? )
+* 
+*
+*
