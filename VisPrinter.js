@@ -88,9 +88,10 @@ VisPrinter = new function(){
        };
        
        var formData = new FormData();
-       for (var key in data) {
+       for (var key in data)
+       {
            formData.append(key, data[key]);
-        }
+       }
 
        req.open('POST', path, true);
        req.send(formData);
@@ -197,7 +198,8 @@ VisPrinter = new function(){
        // named .property or .not_property that can be used to show/hide UI elements 
        // depending on state
        var stateStyle = "";
-       for (var key in this.state) {
+       for (var key in this.state)
+       {
            if (this.state[key] === false)
            {
                stateStyle += "." + key + "{visibility: hidden;}\n";
@@ -317,14 +319,16 @@ VisPrinter = new function(){
        var lines = gcode.split("\n");
        var index = 0;
        
-       for (var i = 0; i < lines.length; i++) {
+       for (var i = 0; i < lines.length; i++)
+       {
            var line = lines[i];
            var parts = line.split(" ");
            if (parts[0] === 'G1')
            {
                var epos = line.indexOf('E', 0);
                //alert(epos+'\n'+line)
-               for (var j = 1; j < parts.length; j++) {
+               for (var j = 1; j < parts.length; j++)
+               {
                    var part = parts[j];
                    var axis = part.substr(0, 1);
                    var value = parseFloat(part.substr(1));
@@ -387,7 +391,8 @@ VisPrinter = new function(){
    // adds messages to the console textarea
    this.onCheck = function(result) {
        var lines = result.split('\n');
-       for (var i = 0; i < lines.length; i++) {
+       for (var i = 0; i < lines.length; i++)
+       {
            var line = lines[i];
            
            //TODO - Neaten this if .. else if
