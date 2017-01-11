@@ -26,12 +26,12 @@ function getCookieValue(cookieName)
 
 // the main reprap printer UI controller
 VisPrinter = new function(){
-   
+
    // if the server is currently connected to a printer
    this.connected = false;
 
    // the mesh currently previewed, if any
-   this.mesh = null; 
+   this.mesh = null;
 
    // load a .stl or .gcode file for preview
    this.load = function(file)
@@ -86,7 +86,7 @@ VisPrinter = new function(){
                callback(req.responseText);
            }
        };
-       
+
        var formData = new FormData();
        for (var key in data)
        {
@@ -121,18 +121,18 @@ VisPrinter = new function(){
        var bar = document.getElementById('progressBar');
        var captionElement = document.getElementById('progressName');
        var string = (!caption) ? '' : parseInt(p * 100) + '%';
-       
+
        if (time !== 0)
        {
            var t = new Date(1970, 0, 1);
            t.setSeconds(time);
            string += ' | ' + t.toTimeString().substr(0, 8) + ' elapsed';
        }
-       
+
        if (offset !== 0 && (parseInt(p * 100) > 2))
        {
            var t = new Date(1970, 0, 1);
-           
+
            if (percent === p)
            {
                seconds--;
@@ -145,19 +145,19 @@ VisPrinter = new function(){
                t.setSeconds(seconds);
                percent = p;
            }
-           
+
            string += ' | ' + t.toTimeString().substr(0, 8) + ' remaining';
-           
+
            var t = new Date(1970, 0, 1);
            var total = parseInt(time) + parseInt(seconds);
            t.setSeconds(total);
            //alert('t: '+time+' + s: '+seconds+' = '+time
            string += ' | ' + t.toTimeString().substr(0, 8) + ' total predicted';
        };
-       
+
        captionElement.innerHTML = string;
        indic.style.display = (!p || p > 0.99) ? 'none' : 'block';
-       
+
        if (p === 1)
        {
           p = 0;
@@ -166,7 +166,7 @@ VisPrinter = new function(){
        {
           p = 0.02;
        }
-       
+
        bar.style.width = (p * 100) + '%';
    };
 
@@ -194,8 +194,8 @@ VisPrinter = new function(){
        // set progress indicator by ongoing server processes
        this.onProgress(this.state.progress);
 
-       // all boolean state properties are reflected by a visibility CSS class 
-       // named .property or .not_property that can be used to show/hide UI elements 
+       // all boolean state properties are reflected by a visibility CSS class
+       // named .property or .not_property that can be used to show/hide UI elements
        // depending on state
        var stateStyle = "";
        for (var key in this.state)
@@ -203,7 +203,7 @@ VisPrinter = new function(){
            if (this.state[key] === false)
            {
                stateStyle += "." + key + "{visibility: hidden;}\n";
-           } 
+           }
            else if (this.state[key] === true)
            {
                stateStyle += ".not_" + key + "{visibility: hidden;}\n";
@@ -229,7 +229,7 @@ VisPrinter = new function(){
        this.progress(caption, progress / 100, time, offset);
    };
 
-   // upload a ready made .gcode 
+   // upload a ready made .gcode
    this.uploadGcode = function(text)
    {
        // create callback to give feedback and complete progress indicator
@@ -259,7 +259,7 @@ VisPrinter = new function(){
        return getCookieValue("session");
    };
 
-   // issue print command 
+   // issue print command
    this.print = function()
    {
        var session = this.getSession();
@@ -280,7 +280,7 @@ VisPrinter = new function(){
        if (!callback)
        {
            console.value += "\n>" + cmd + "\n";
-           
+
            callback = function(response) {
                VisPrinter.onCmd(response);
            };
@@ -288,7 +288,7 @@ VisPrinter = new function(){
        this.httpGet('pronsole?cmd=' + encodeURI(cmd), callback);
    };
 
-   // default callback for pronsole commands 
+   // default callback for pronsole commands
    // append the result to console textarea
    this.onCmd = function(result)
    {
@@ -318,7 +318,7 @@ VisPrinter = new function(){
        };
        var lines = gcode.split("\n");
        var index = 0;
-       
+
        for (var i = 0; i < lines.length; i++)
        {
            var line = lines[i];
@@ -362,9 +362,9 @@ VisPrinter = new function(){
 
    // repeatedly poll printer output buffer from server
    // this is done every second if a printer is connected, and every 10 seconds
-   // if not, as connecting takes about 10s to succeed. 
+   // if not, as connecting takes about 10s to succeed.
    // TODO it would be better to let the server retry the printer connection, or
-   // to retry connect indipendently of the check polling so we can poll the state 
+   // to retry connect indipendently of the check polling so we can poll the state
    // as often we like to stay responsive for printerless use (eg. slicing).
    this.check = function()
    {
@@ -394,14 +394,14 @@ VisPrinter = new function(){
        for (var i = 0; i < lines.length; i++)
        {
            var line = lines[i];
-           
+
            //TODO - Neaten this if .. else if
            if (!line)
            {
                continue;
            }
            else if (line.substr(0, 4) === "ok T")
-           { 
+           {
                // normal temp m105 feedback
                var exa = document.getElementById('exa');
                var ext = document.getElementById('ext');
@@ -416,8 +416,8 @@ VisPrinter = new function(){
                exa.className = "actual_temp";
            }
            else if (line.substr(0, 2) === "T:")
-           { 
-               // bed or extruder heating alternate feedback					
+           {
+               // bed or extruder heating alternate feedback
                var exa = document.getElementById('exa');
                var ext = document.getElementById('ext');
                var bea = document.getElementById('bea');
@@ -434,7 +434,7 @@ VisPrinter = new function(){
                }
            }
            else if (line.substr(0, 2) === 'X:')
-           { 
+           {
                // m114 feedback
                var xpos = document.getElementById('xpos');
                var ypos = document.getElementById('ypos');
@@ -445,7 +445,7 @@ VisPrinter = new function(){
                zpos.innerHTML = pieces[3].substr(0, pieces[3].length - 1);
            }
            else if (line.indexOf('ok ') === 0)
-           { 
+           {
                ////|| (line.substr(0,4) == "ok T")) {
                // we received an 'ok', so consider the printer connected
                this.connected = true;
@@ -462,7 +462,7 @@ VisPrinter = new function(){
        }
    };
 
-   // request server /cancel 
+   // request server /cancel
    // this cancels the current operation, that may be a slicing or printing operation
    this.cancel = function()
    {
@@ -480,7 +480,7 @@ VisPrinter = new function(){
 
    // attach this VisPrinter controller to a HTML UI
    // the html need to provide several UI elements and classes
-   // see index.html 
+   // see index.html
    this.attach = function()
    {
        //WEBGL NOT WORKING ON PI
