@@ -1,6 +1,6 @@
-// script.js
+/* global Printer */
 
-// create the module and name it printerface
+// Create the module and name it printerface
 // also include ngRoute for all our routing needs
 
 var printerface = angular.module('printerface', ['ngRoute']);
@@ -14,36 +14,31 @@ printerface.run(function ($templateCache, $http) {
 //Configure Routes
 printerface.config(function ($routeProvider) {
    $routeProvider
-
-           //Homepage
-           .when('/', {
-              templateUrl: 'pages/largeButton.html',
-              controller: 'mainController'
-           })
-
-           //Print
-           .when('/print', {
-              templateUrl: 'pages/largeButton.html',
-              controller: 'printController'
-           })
-
-           //Control
-           .when('/control', {
-              templateUrl: 'pages/normal.html',
-              controller: 'controlController'
-           })
-
-           //Settings
-           .when('/settings', {
-              templateUrl: 'pages/settings.html',
-              controller: 'settingsController'
-           })
-
-           //User
-           .when('/users', {
-              templateUrl: 'pages/users.html',
-              controller: 'usersController'
-           });
+      //Homepage
+      .when('/', {
+         templateUrl: 'pages/largeButton.html',
+         controller: 'homeController'
+      })
+      //Print
+      .when('/print', {
+         templateUrl: 'pages/largeButton.html',
+         controller: 'printController'
+      })
+      //Control
+      .when('/control', {
+         templateUrl: 'pages/normal.html',
+         controller: 'controlController'
+      })
+      //Settings
+      .when('/settings', {
+         templateUrl: 'pages/settings.html',
+         controller: 'settingsController'
+      })
+      //User
+      .when('/users', {
+         templateUrl: 'pages/users.html',
+         controller: 'usersController'
+      });
 });
 
 //Admin user control
@@ -62,7 +57,7 @@ printerface.factory('progress', function () {
 });
 
 //Home Page
-printerface.controller('mainController', function ($scope, progress) {
+printerface.controller('homeController', function ($scope, progress) {
    $scope.title = 'Home';
    $scope.rights = 'EduMaker';
    $scope.errorMsg = 'EduMaker';
