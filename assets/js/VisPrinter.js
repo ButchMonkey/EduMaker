@@ -27,7 +27,7 @@ function getCookieValue(cookieName)
 
 
 // the main reprap printer UI controller
-VisPrinter=new function(){
+Printer=new function(){
 
 	// if the server is currently connected to a printer
 	this.connected=false;
@@ -46,13 +46,13 @@ VisPrinter=new function(){
 			var text=e.target.result;
 			var suffix=file.name.substring(file.name.lastIndexOf('.'));
 			if(suffix=='.gcode') {
-				VisPrinter.uploadGcode(text);
+				Printer.uploadGcode(text);
 				if(gltest!=null){
 					if(confirm('Produce 3D gcode preview of '+file.name+' ?')==true){
 						document.getElementById('gcode_name').innerHTML='<i>working...</i>';
-						VisPrinter.onSliced(text);
+						Printer.onSliced(text);
 						document.getElementById('gcode_name').innerHTML=localStorage.gcode_name;
-						VisPrinter.console.value+='\n>Finished producing 3D g-code preview for '+filename;
+						Printer.console.value+='\n>Finished producing 3D g-code preview for '+filename;
 						tabs('3D_tab','3D');
 					}
 				}
@@ -147,16 +147,16 @@ VisPrinter=new function(){
 
 	// poll /state for UI feedback of printer and slicing state
 	this.checkState=function(){
-			VisPrinter.httpGet('state',function(result){
-				VisPrinter.onState(result);
+			Printer.httpGet('state',function(result){
+				Printer.onState(result);
 			});
-			VisPrinter.httpGet('temp', function(result){
-				//VisPrinter.onState(result);
+			Printer.httpGet('temp', function(result){
+				//Printer.onState(result);
 			});
-			VisPrinter.httpGet('posi', function(result){
-				//VisPrinter.onState(result);
+			Printer.httpGet('posi', function(result){
+				//Printer.onState(result);
 			});
-			window.setTimeout(function(e){VisPrinter.checkState();},1000);
+			window.setTimeout(function(e){Printer.checkState();},1000);
 	}
 
 	// callback to handle a state report from the server
@@ -200,14 +200,14 @@ VisPrinter=new function(){
 	this.uploadGcode=function(text){
 		// create callback to give feedback and complete progress indicator
 		var onUploaded=function(response){
-			VisPrinter.console.value+="\nUploaded.\n";
-			VisPrinter.progress();
+			Printer.console.value+="\nUploaded.\n";
+			Printer.progress();
 		}
 
 		// issue .gcode upload request
 		this.httpPost('upload',{'gcode':text}, onUploaded);
 		this.console.value+="\nUploading gcode...\n";
-		VisPrinter.progress("Uploading gcode...",.5);
+		Printer.progress("Uploading gcode...",.5);
 	}
 
 	// issue G1 gcode to send printer to location given by goto form
@@ -237,7 +237,7 @@ VisPrinter=new function(){
 	this.cmd=function(cmd,callback){
 		var console=document.getElementById('console');
 		if(!callback) console.value+="\n>"+cmd+"\n";
-		if(!callback) callback=function(response){VisPrinter.onCmd(response)};
+		if(!callback) callback=function(response){Printer.onCmd(response)};
 		this.httpGet('pronsole?cmd='+encodeURI(cmd), callback);
 	}
 	
@@ -305,16 +305,16 @@ VisPrinter=new function(){
 	// as often we like to stay responsive for printerless use (eg. slicing).
 	this.check=function(){
 		// issue /check request, calling onCheck on response
-		VisPrinter.httpGet('printer',function(result){
-			VisPrinter.onCheck(result);
+		Printer.httpGet('printer',function(result){
+			Printer.onCheck(result);
 		});
 
 		if(!this.connected) {
 			// not connected to the printer, try to connect and check again in 10s
-			window.setTimeout(function(e){VisPrinter.check();},1000);
+			window.setTimeout(function(e){Printer.check();},1000);
 		} else {
 			// the printer is connected, check again in one second
-			window.setTimeout(function(e){VisPrinter.check();},1000);
+			window.setTimeout(function(e){Printer.check();},1000);
 		}
 	}
 
@@ -397,7 +397,7 @@ VisPrinter=new function(){
 		viewer.gl.ondraw();
 	}
 
-	// attach this VisPrinter controller to a HTML UI
+	// attach this Printer controller to a HTML UI
 	// the html need to provide several UI elements and classes
 	// see index.html 
 	this.attach=function(){
@@ -422,7 +422,7 @@ VisPrinter=new function(){
 		
 		
 		this.console=document.getElementById('console');
-		var VisPrinter=this;
+		var Printer=this;
 		restoreValues();
 		this.check();
 		this.checkState();
@@ -454,29 +454,29 @@ function tabs(activeTab, targetTab) {
 
 function mov(axis, distance) {
 	var feed = '';
-	VisPrinter.cmd('G91');
+	Printer.cmd('G91');
 	if(axis == 'Z') {
 		feed = '300';
 	} else {
 		feed = '3000';
 	}
-	window.setTimeout(function(){VisPrinter.cmd('G1 '+axis+distance+' F'+feed)},50);
+	window.setTimeout(function(){Printer.cmd('G1 '+axis+distance+' F'+feed)},50);
 }
 
 function ext(direction, distance, feed) {
-	VisPrinter.cmd('G91');
+	Printer.cmd('G91');
 	if(direction == 'retract'){
-		window.setTimeout(function(){VisPrinter.cmd('G1 E-'+distance+' F'+feed)},50);
+		window.setTimeout(function(){Printer.cmd('G1 E-'+distance+' F'+feed)},50);
 	} else {
-		window.setTimeout(function(){VisPrinter.cmd('G1 E'+distance+' F'+feed)},50);
+		window.setTimeout(function(){Printer.cmd('G1 E'+distance+' F'+feed)},50);
 	}
 }
 
 function heat(heater, temp) {
 	if(heater == 'bed'){
-		VisPrinter.cmd('M140 S'+parseInt(temp));
+		Printer.cmd('M140 S'+parseInt(temp));
 	} else {
-		VisPrinter.cmd('M104 S'+parseInt(temp));
+		Printer.cmd('M104 S'+parseInt(temp));
 	}
 }
 
@@ -510,22 +510,22 @@ function cancelFullscreen() {
 }
 
 function load_gcode(){
-	VisPrinter.httpGet('gcode',function(file){
+	Printer.httpGet('gcode',function(file){
 		if(file.search('Error response')==-1){
-			var sessions = VisPrinter.getSession();
+			var sessions = Printer.getSession();
 			if(sessions == localStorage.session){
 				var filename = localStorage.gcode_name
 			} else {
 				var filename = sessions+'.gcode';
 			}
 			document.getElementById('filename').innerHTML=filename;
-			VisPrinter.console.value+='\n>Loaded previous file '+filename;
+			Printer.console.value+='\n>Loaded previous file '+filename;
 			if(gltest!=null){
 				if(confirm('Produce 3D gcode preview of '+filename+' ?')== true){
 					document.getElementById('gcode_name').innerHTML='<i>working...</i>';
-					VisPrinter.onSliced(file);
+					Printer.onSliced(file);
 					document.getElementById('gcode_name').innerHTML=filename;
-					VisPrinter.console.value+='\n>Finished producing 3D g-code preview for '+filename;
+					Printer.console.value+='\n>Finished producing 3D g-code preview for '+filename;
 					tabs('3D_tab','3D');
 				}
 			}

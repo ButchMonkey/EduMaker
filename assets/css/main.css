@@ -1,3 +1,7 @@
+* {
+   user-select:none;
+}
+
 .mdi {
   display: table-cell !important;
   vertical-align: middle !important;

@@ -1,3 +1,5 @@
+/* global Printer */
+
 // Create the module and name it printerface
 // also include ngRoute for all our routing needs
 
@@ -8,10 +10,14 @@ printerface.run(function ($templateCache, $http) {
    $http.get('pages/users.html', { cache: $templateCache });
    $http.get('pages/settings.html', { cache: $templateCache });
 
-   VisPrinter.attach();
-   VisPrinter.connect();
+   Printer.attach();
+   Printer.connect();
 
-   //ondragstart="return false"
+   //Prevent users from dragging the links around the screen
+   $(document).on( 'dragstart', 'a', function() {
+      return false;
+   });
+
 });
 
 //Configure Routes
@@ -107,13 +113,13 @@ printerface.controller('homeController', function($scope, progress) {
     };
 
     function setStatus(){
-        // if(!VisPrinter.connnected){
+        // if(!Printer.connnected){
         if(true){
-            VisPrinter.cmd('connect');
-            VisPrinter.check();
-            //return "<button class='btn' onclick='alert(\"Connecting\");VisPrinter.connect();'>Connect</button>";
+            Printer.cmd('connect');
+            Printer.check();
+            //return "<button class='btn' onclick='alert(\"Connecting\");Printer.connect();'>Connect</button>";
         } else {
-            //VisPrinter.cmd('disconnect')
+            //Printer.cmd('disconnect')
             //return "<button class='btn' onclick='alert(\"Disconnecting\")'>Disconnect</button>";
         }
     }
@@ -122,7 +128,7 @@ printerface.controller('homeController', function($scope, progress) {
         switch (gcode){
             case "print":
                 console.log('Print');
-                VisPrinter.print();
+                Printer.print();
                 break;
             case "cancel":
                 console.log('Cancel');
@@ -131,13 +137,13 @@ printerface.controller('homeController', function($scope, progress) {
                 console.log('Move');
                 if(axis == undefined || distance == undefined){alert("Undefined Variable in Move command");}
                     var feed = '';
-                    VisPrinter.cmd('G91');
+                    Printer.cmd('G91');
                     if(axis == 'Z') {
                             feed = '300';
                     } else {
                             feed = '3000';
                    }
-                    window.setTimeout(function(){VisPrinter.cmd('G1 '+axis+distance+' F'+feed)},50);
+                    window.setTimeout(function(){Printer.cmd('G1 '+axis+distance+' F'+feed)},50);
                 break;
             case "heat":
                 console.log('Heat');
@@ -150,7 +156,7 @@ printerface.controller('homeController', function($scope, progress) {
                 break;
             default:
                 if(gcode){
-                    VisPrinter.cmd(gcode);
+                    Printer.cmd(gcode);
                 }
                 break;
 
