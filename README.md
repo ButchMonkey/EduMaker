@@ -8,6 +8,38 @@
                                                
  ----------------------------------------------------------------- 
 ```
+## Installation
+
+### Step 1. Install python.
+
+```
+sudo apt-get install python-serial python-wxgtk2.8 python-pyglet
+```
+
+This will install python automatically.
+
+### Step 2. Install this repo.
+
+Using teminal, make a folder to store the contents of this repo:
+
+```
+sudo mkdir /path/to/folder
+chmod a+rwx /path/to/folder
+```
+Clone this project to that folder
+
+```
+git clone git@github.com:ButchMonkey/EduMaker.git
+(git clone https://ButchMonkey@github.com/ButchMonkey/EduMaker for private)
+```
+
+Give appropriate permissions
+
+```
+sudo chmod a+rwx /path/to/folder/EduMaker/tmp
+sudo chmod a+rwx /path/to/folder/EduMakerwebserver.py
+sudo chmod a+rwx /path/to/folder/EduMaker/run.sh
+```
 
                                 
 ### To Do List
