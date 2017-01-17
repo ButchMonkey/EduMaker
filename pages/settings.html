@@ -10,36 +10,36 @@
     <div class="wrapper">
         <div class="row-fluid metro" style="/* margin: 0; *//* display: none; */">
             <div style="height: 42.5vw;width: 22vw;display: inline-block;">
-               <div style="height:0px;overflow:hidden"><input type="file" id="fileInput" name="fileInput" accept=".gcode" onchange="alert('Uploading'); VisPrinter.load(this.files[0])" /></div>
-                <a onclick="$('#fileInput').click();" href="{{icons.0.href}}">
+               <div style="height:0px;overflow:hidden"></div>
+                <a href="{{icons.0.href}}">
                     <div class="bg-color-gray tile square" style="margin-top: 0px !important;">
-                        <span class="win-commandicon icon-{{icons.0.icon}}"></span>
+                        <span class="mdi mdi-{{icons.0.icon}}"></span>
                         <span style="display: table-caption;position: relative;top: 17vw;font-size: 2vw;color: #0099CC;">{{icons.0.name}}</span>
                     </div>
                 </a>
                 <a href="{{icons.1.href}}">
                     <div class="bg-color-gray tile square">
-                        <span class="win-commandicon icon-{{icons.1.icon}}"></span>
+                        <span class="mdi mdi-{{icons.1.icon}}"></span>
                         <span style="display: table-caption;position: relative;top: 17vw;font-size: 2vw;color: #0099CC;">{{icons.1.name}}</span>
                     </div>
                 </a>
             </div>
             <a href="{{icons.2.href}}">
                 <div id="print" class="bg-color-gray tile square" style="width: 42.5vw !important;height: 42.2vw !important;">
-                    <span class="win-commandicon" style="font-size: 20vw !important;"><textarea id="settingsConsole" readonly></textarea></span>
+                    <span class="mdi" style="font-size: 20vw !important;"><textarea id="settingsConsole" readonly></textarea></span>
                     <span style="display: table-caption;position: relative;top: 35vw;font-size: 4vw;color: #0099CC;"></span>
                 </div>
             </a>
             <div style="height: 22vw;width: 22vw;display: inline-block;">
                 <a href="{{icons.3.href}}">
                     <div class="bg-color-gray tile square">
-                        <span class="win-commandicon icon-{{icons.3.icon}}"></span>
+                        <span class="mdi mdi-{{icons.3.icon}}"></span>
                         <span style="display: table-caption;position: relative;top: 17vw;font-size: 2vw;color: #0099CC;">{{icons.3.name}}</span>
                     </div>
                 </a>
                 <a href="{{icons.4.href}}" onclick="$('#myModal').modal('show')">
                     <div class="bg-color-gray tile square">
-                        <span class="win-commandicon icon-{{icons.4.icon}}"></span>
+                        <span class="mdi mdi-{{icons.4.icon}}"></span>
                         <span style="display: table-caption;position: relative;top: 17vw;font-size: 2vw;color: #0099CC;">{{icons.4.name}}</span>
                     </div>
                 </a>

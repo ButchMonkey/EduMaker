@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 import sys
 import os
@@ -15,14 +15,14 @@ import cgi
 import Cookie
 import BaseHTTPServer
 import SocketServer
-
+import time
 import pronsole
 import settings
 
 # our pronterface instance
 printer=pronsole.pronsole()
 #progress indicator state
-progress="Idle 0"
+progress="Idle 0 0"
 # running processes (eg. Slic3r.pl)
 processes=[]
 # printer output buffer
@@ -45,13 +45,16 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         global recv_buffer
         self.send_response(200)
         self.end_headers()
-	tmp_buffer=recv_buffer
+        tmp_buffer=recv_buffer
         recv_buffer=[]
         for line in tmp_buffer:
-        	self.wfile.write(line)
+            self.wfile.write(line)
 
     # serve a file from our folder
     def serve_file(self,url_path):
+        print url_path
+        if url_path=='/':
+            url_path='/index.html'
         # map URL path to file in our directory
         file_path=os.path.abspath('./'+url_path)
         # prevent the client from accessing any file outside our directory
@@ -62,6 +65,11 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         f = open(file_path)
         # send headers
         self.send_response(200)
+        # establish correct mime type
+        if "css" in url_path:
+            self.send_header('Content-Type','text/css')
+        elif ".js" in url_path:
+            self.send_header('Content-Type','text/javascript')
         # establish a random session cookie 
         if not "Cookie" in self.headers or self.headers.get('Cookie').find('session=')==-1:
             self.send_header('Set-Cookie','session='+str(random.randint(0,0xFFFFFFFF)));
@@ -87,49 +95,74 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         try:
             parts=cmds.split('\n')
             for cmd in parts:
-	            printer.onecmd(cmd)
+					printer.onecmd(cmd)
         except Exception as e:
             print e
-
+			
     # run slicer and return gcode
     def serve_slic3r(self,session_id,config):
-	global progress
-	progress="Slicing... 1"
+        global progress
+        progress="Slicing... 1"
         self.send_response(200)
         self.end_headers()
         # invoke the slic3r with progress indicator
-	self.call_monitored(settings.slicer+' --debug --load '+config+' -o tmp/'+session_id+'.gcode tmp/'+session_id+'.stl',self.monitor_slic3r)	
+        self.call_monitored(settings.slicer+' --debug --load '+config+' -o tmp/'+session_id+'.gcode tmp/'+session_id+'.stl',self.monitor_slic3r)	
 	# pass resulting .gcode file content to client
-	gcode=open('tmp/'+session_id+'.gcode', 'r').read()
-	self.wfile.write(gcode)
-	progress="Slicing... 100"
+        gcode=open('tmp/'+session_id+'.gcode', 'r').read()
+        self.wfile.write(gcode)
+        progress="Slicing... 100"
 
     # cancel any ongoing operations: printing and slicing
     def serve_cancel(self, session_id):
-	global progress 
-	for process in processes:
-		processes.remove(process)
-		process.kill()
-	if printer.p.printing:
-		printer.onecmd('pause')
+        global progress 
+        for process in processes:
+                processes.remove(process)
+                process.kill()
+        if printer.p.printing:
+                printer.onecmd('pause')
+                printer.onecmd('M104 S0')
+                printer.onecmd('M140 S0')
+                printer.p.paused=False
+                printer.p.printing=False
+		
     
     # serve some state for UI feedback
     def serve_state(self,session_id):
-	global progress
+        global progress
+        global time
         self.send_response(200)
         self.end_headers()
-	if printer.p.printing:
-		progress="Printing... "+str(int(99*float(printer.p.queueindex)/len(printer.p.mainqueue))+1)
-	state={
+        if printer.p.printing:
+            progress="Printing... "+str(int(99*float(printer.p.queueindex)/len(printer.p.mainqueue))+1)+" "+str(int(time.time())-int(printer.p.starttime))+" "+str(int(printer.p.offset))
+        state={
 		'online':printer.p.online,        # if the printer is connected
 		'printing': printer.p.printing,   # if the printer is currently printing
 		'paused':printer.p.paused,        # if the printer is currently paused
 		'clear':printer.p.clear,          # if the printer is clear to print
 		'progress':progress               # progress of current slicing or printing operation
 	}
-	_json=json.dumps(state, indent=4)
-	self.wfile.write(_json)
- 
+        _json=json.dumps(state, indent=4)
+        self.wfile.write(_json)
+
+    # serve temp
+    def serve_temp(self):
+        global progress
+        self.send_response(200)
+        self.end_headers()
+        if printer.p.online:
+            _json=json.dumps(printer.onecmd('m105'), indent=4)
+            self.wfile.write(_json)
+
+    # serve position
+    def serve_posi(self):
+        global progress
+        self.send_response(200)
+        self.end_headers()
+        if printer.p.online:
+            _json=json.dumps(printer.onecmd('m114'), indent=4)
+            self.wfile.write(_json)
+
+        
     # parse a line of slic3r's stdout output and set progress indicator accordingly
     # currently only the 'filling layer' phase is tracked, that usually makes up most of the slicing time. 
     # TODO can we provide an estimation of progress at the earlier 'geometry' phase too?
@@ -149,19 +182,19 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     # run a command and collect stderr, stdout to a buffer for interactive access
     # this is useful to serve a progress indicator for commands providing some progress output
     def call_monitored(self, cmdline, callback):
-	global progress
+        global progress
         global processes
 	
 	# run the command
-	process=subprocess.Popen(cmdline.split(' '),stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-	processes.append(process)
+        process=subprocess.Popen(cmdline.split(' '),stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        processes.append(process)
         # monitor command's outputs and invoke callback for each line
-	while process.poll()==None:
-		line=process.stdout.readline()
-		if not line: break
-		callback(line)
-	if(process in processes):
-		processes.remove(process)
+        while process.poll()==None:
+                line=process.stdout.readline()
+                if not line: break
+                callback(line)
+        if(process in processes):
+                processes.remove(process)
 
     # save given data to file name
     def save_tmp(self,name,content):
@@ -241,11 +274,17 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                 self.serve_slic3r(session_id,url_params.get('config')[0])
             elif url_parts.path=='/state':
                 self.serve_state(session_id)
+            elif url_parts.path=='/posi':
+                self.serve_posi()
+            elif url_parts.path=='/temp':
+                self.serve_temp()
+            elif url_parts.path=='/gcode':
+                self.serve_file('tmp/'+session_id+'.gcode')
             elif url_parts.path=='/cancel':
                 self.serve_cancel(session_id)
             elif url_parts.path=='/upload':
-		self.send_response(200)
-		self.end_headers()
+                self.send_response(200)
+                self.end_headers()
             else:
                 self.serve_file(url_parts.path)
         except Exception as e:

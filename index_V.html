@@ -1,0 +1,181 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<title>Vis/Printer</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf8">
+	<script type="text/javascript" src="Viewer.js"></script>
+	<script type="text/javascript" src="lightgl.js"></script>
+	<script type="text/javascript" src="VisPrinter.js"></script>
+	<link rel="stylesheet" type="text/css" href="base.css">	
+</head>
+<body onLoad="VisPrinter.attach();">
+<canvas id="gltest" style="position:absolute;width:0px;height:0px;"></canvas>
+<style id='connectionStyle'></style>
+<style id='slicingStyle'>.sliced{visibility: hidden;}</style>
+<style id='stateStyle'></style>
+<div id="left" onselectstart='return false'>
+	<div id="tabs">
+        <div id="move_tab" class="active_tab" onClick="tabs('move_tab','move'); return false;">controls</div>
+        <div id="3D_tab" class="inactive_tab" onClick="tabs('3D_tab','3D'); return false;">3D g-code: <span id="gcode_name"><i>none</i></span></div>
+        <div id="log_tab" class="inactive_tab" onClick="tabs('log_tab','log'); return false;">console</div>
+    </div>
+    <div id="container">
+        <div id="move" class="panel_showing">
+        	<div class="online">               
+                <form class=online name="heater" onSubmit="return false;">
+                    <h2>temperature</h2>
+                    <table id="temp_controls">
+                    	<tbody>
+                        	<tr><td colspan="2">extruder <input name="t_extruder" size=3 value="215"></td>
+                            <td class="graph_button_alt" onClick="heat('extruder',document.heater.t_extruder.value)">set</td>
+                            <td class="graph_button_alt" onClick="VisPrinter.cmd('M104 S0')">off</td>
+                            <td></td>
+                            <td colspan="2">bed <input name="t_bed" size=3 value="115"></td>
+                            <td class="graph_button_alt" onClick="heat('bed',document.heater.t_bed.value)">set</td>
+                            <td class="graph_button_alt" onClick="VisPrinter.cmd('M140 S0')">off</td></tr>
+                            
+                            <tr><td class="graph_button" onClick="document.heater.t_extruder.value=parseInt(document.heater.t_extruder.value)-10;if(document.heater.t_extruder.value<1)document.heater.t_extruder.value=0;if(testStorage()){localStorage.ext=document.heater.t_extruder.value};">-10</td>
+                            <td class="graph_button" onClick="document.heater.t_extruder.value=parseInt(document.heater.t_extruder.value)-1;if(document.heater.t_extruder.value<1)document.heater.t_extruder.value=0;if(testStorage()){localStorage.ext=document.heater.t_extruder.value};">-1</td>
+                            <td class="graph_button" onClick="document.heater.t_extruder.value=parseInt(document.heater.t_extruder.value)+1;if(testStorage()){localStorage.ext=document.heater.t_extruder.value};">+1</td>
+                            <td class="graph_button" onClick="document.heater.t_extruder.value=parseInt(document.heater.t_extruder.value)+10;if(testStorage()){localStorage.ext=document.heater.t_extruder.value};">+10</td>
+                            <td></td>
+                            <td class="graph_button" onClick="document.heater.t_bed.value=parseInt(document.heater.t_bed.value)-10;if(document.heater.t_bed.value<1)document.heater.t_bed.value=0;if(testStorage()){localStorage.bet=document.heater.t_bed.value};">-10</td>
+                            <td class="graph_button" onClick="document.heater.t_bed.value=parseInt(document.heater.t_bed.value)-1;if(document.heater.t_bed.value<1)document.heater.t_bed.value=0;if(testStorage()){localStorage.bet=document.heater.t_bed.value};">-1</td>
+                            <td class="graph_button" onClick="document.heater.t_bed.value=parseInt(document.heater.t_bed.value)+1;if(testStorage()){localStorage.bet=document.heater.t_bed.value};">+1</td>
+                            <td class="graph_button" onClick="document.heater.t_bed.value=parseInt(document.heater.t_bed.value)+10;if(testStorage()){localStorage.bet=document.heater.t_bed.value};">+10</td></tr>
+                        </tbody>
+                     </table>
+                </form>
+                <form class=online name="extrusion" onSubmit="return false;">
+                    <h2>extrusion</h2>
+                     <table id="extrusion_controls">
+                    	<tbody>
+                        	<tr><td colspan="4">distance <input name="distance" size=3 value="10"></td>
+                            <td></td>
+                            <td colspan="4">speed <input name="feed" size=3 value="100"></td>
+                            <td></td>
+                            <td class="graph_button_alt" onClick="ext('extrude',document.extrusion.distance.value,document.extrusion.feed.value)">extrude</td></tr>
+                            
+                            <tr><td class="graph_button" onClick="document.extrusion.distance.value=parseInt(document.extrusion.distance.value)-10;if(document.extrusion.distance.value<1)document.extrusion.distance.value=0;if(testStorage()){localStorage.dis=document.extrusion.distance.value};">-10</td>
+                            <td class="graph_button" onClick="document.extrusion.distance.value=parseInt(document.extrusion.distance.value)-1;if(document.extrusion.distance.value<1)document.extrusion.distance.value=0;if(testStorage()){localStorage.dis=document.extrusion.distance.value};">-1</td>
+                            <td class="graph_button" onClick="document.extrusion.distance.value=parseInt(document.extrusion.distance.value)+1;if(testStorage()){localStorage.dis=document.extrusion.distance.value};">+1</td>
+                            <td class="graph_button" onClick="document.extrusion.distance.value=parseInt(document.extrusion.distance.value)+10;if(testStorage()){localStorage.dis=document.extrusion.distance.value};">+10</td>
+                            <td></td>
+                            <td class="graph_button" onClick="document.extrusion.feed.value=parseInt(document.extrusion.feed.value)-10;if(document.extrusion.feed.value<1)document.extrusion.feed.value=0;if(testStorage()){localStorage.fee=document.extrusion.feed.value};">-10</td>
+                            <td class="graph_button" onClick="document.extrusion.feed.value=parseInt(document.extrusion.feed.value)-1;if(document.extrusion.feed.value<1)document.extrusion.feed.value=0;if(testStorage()){localStorage.fee=document.extrusion.feed.value};">-1</td>
+                            <td class="graph_button" onClick="document.extrusion.feed.value=parseInt(document.extrusion.feed.value)+1;if(testStorage()){localStorage.fee=document.extrusion.feed.value};">+1</td>
+                            <td class="graph_button" onClick="document.extrusion.feed.value=parseInt(document.extrusion.feed.value)+10;if(testStorage()){localStorage.fee=document.extrusion.feed.value};">+10</td>
+                            <td></td>
+                            <td class="graph_button_alt" onClick="ext('retract',document.extrusion.distance.value,document.extrusion.feed.value)">retract</td></tr>
+                        </tbody>
+                     </table>
+                </form>
+                
+                <form class=online onSubmit="return false;">
+                    <h2>movement</h2> 
+                    <table id="move_controls">
+                    	<tbody>
+                        <tr><td colspan="2" rowspan="2" class="graph_button_alt" onClick="VisPrinter.cmd('G28 X0')">home x</td><td></td><td class="graph_button" onClick="mov('Y','100')">100</td><td></td><td colspan="2" rowspan="2" class="graph_button_alt" onClick="VisPrinter.cmd('G28 Y0')">home y</td><td></td><td class="graph_button" onClick="mov('Z','-100')">100</td></tr>
+                        <tr><td></td><td class="graph_button" onClick="mov('Y','10')">10</td><td></td><td></td><td class="graph_button" onClick="mov('Z','-10')">10</td></tr>
+                        <tr><td></td><td></td><td></td><td class="graph_button" onClick="mov('Y','1')">1</td><td></td><td></td><td></td><td style="width:40px;"></td><td class="graph_button" onClick="mov('Z','-1')">1</td></tr>
+                        <!-- middle row -->
+                        <tr>
+                        	<td class="graph_button" onClick="mov('X','-100')">100</td>
+                            <td class="graph_button" onClick="mov('X','-10')">10</td>
+                            <td class="graph_button" onClick="mov('X','-1')">1</td>
+                            <td style="color:white;">X / Y</td>
+                            <td class="graph_button" onClick="mov('X','1')">1</td>
+                            <td class="graph_button" onClick="mov('X','10')">10</td>
+                            <td class="graph_button" onClick="mov('X','100')">100</td>
+                            <td></td>
+                            <td style="color:white;">Z</td>
+                        </tr>
+                        
+                        
+                        <tr><td></td><td></td><td></td><td class="graph_button" onClick="mov('Y','-1')">1</td><td></td><td></td><td></td><td></td><td class="graph_button" onClick="mov('Z','1')">1</td></tr>
+                        <tr><td colspan="2" rowspan="2" class="graph_button_alt" onClick="VisPrinter.cmd('G28')">home all</td><td></td><td class="graph_button" onClick="mov('Y','-10')">10</td><td></td><td colspan="2" rowspan="2" class="graph_button_alt" onClick="VisPrinter.cmd('G28 Z0')">home z</td><td></td><td class="graph_button" onClick="mov('Z','10')">10</td></tr>
+                        <tr><td></td><td class="graph_button" onClick="mov('Y','-100')">100</td><td></td><td></td><td class="graph_button" onClick="mov('Z','100')">100</td></tr>
+                        </tbody>
+                    </table>
+                </form>
+        	</div>
+        </div>
+        <div id="3D" class="panel_hidden">
+        	<div class="view" id="view"></div>
+        </div>
+        <div id="log" class="panel_hidden">
+        	<button onClick="document.getElementById('console').value=''" id="clearlog">clear</button>
+        	<textarea class=console id="console">>Server started...</textarea>
+            <form id="manual_command" class=online onSubmit="VisPrinter.cmd(this.cmd.value); return false;">
+               	<h2>send gcode</h2>
+               	<input style="font-size:18px;width:70%;" name=cmd onFocus="VisPrinter.cmd('G90')" title="issue command by pressing <enter>">
+             </form>
+        </div>
+    </div>
+</div>
+<div id="right" onselectstart='return false'>
+	<form onSubmit="return false">
+        <h2>connection</h2>
+        <span class=online style="padding-left:20px;color:green;">&#10003;</span><span class=not_online style="color:red;">X</span>
+        <button class="online" onClick="VisPrinter.cmd('disconnect')"><span style="font-size:10px;">disconnect</span></button>
+        <button class="not_online" onClick="VisPrinter.cmd('connect')"><span style="font-size:10px;">connect</span></button>
+        <button class="online" onClick="VisPrinter.cmd('reset')"><span id="reset">reset</span></button>
+     </form>
+     <form class="online">   
+        <div id="ex_temp">
+        	<h2>extruder temp</h2>
+            <span id="exa" class="actual_temp">0.0</span> / <span id="ext" class="target_temp">0.0</span>
+        </div>
+        <div id="bed_temp">
+            <h2>bed temp</h2>
+            <span id="bea" class="actual_temp">0.0</span> / <span id="bet" class="target_temp">0.0</span>
+        </div>
+        <div class="posi">X: <span id="xpos" class="actual_temp">0.00</span></div>
+        <div class="posi">Y: <span id="ypos" class="actual_temp">0.00</span></div>
+        <div class="posi">Z: <span id="zpos" class="actual_temp">0.00</span></div>
+        <div style="clear:both;"></div>
+    </form>
+	<form name="gcode" onSubmit="return false">
+        <h2>load gcode</h2>
+        <input name=stl type=file onChange="VisPrinter.load(this.files[0])">
+    </form>
+    <!--
+    <form onSubmit="return false">
+        <h2>slice</h2>
+        <select name=config id=config></select> 
+        <button onClick="VisPrinter.editConfig()" title="edit current settings">edit</button>
+        <button onClick="VisPrinter.slice()" title="slice this object according to current settings">slice</button>
+    </form>
+    -->
+    <form onSubmit="return false" class="online">    
+        <h2>print <span id="filename"></span></h2>
+        <button onClick="VisPrinter.print()"  class="not_paused not_printing">print</button>
+        <button onClick="VisPrinter.cmd('pause')"   class="printing">pause</button>
+        <button onClick="VisPrinter.cmd('resume')"   class="paused">resume</button>
+        <button onClick="VisPrinter.cancel()"   class="printing">cancel</button>
+        <span id=status></span>
+    </form>
+    <form onSubmit="return false">
+        <h2>browser</h2>
+        <button onClick="document.location.reload(true)">refresh</button>
+        <button onClick="fullscreen()">full screen</button>
+     </form>
+
+</div>
+<div id="bottom" onselectstart='return false'>
+	<div id="progress" class="online printing">
+    	<div><span id=progressName></span>
+    		<div id=progressBar>
+            	
+            </div>
+        </div>
+    </div>
+</div>
+	<script>
+	//	VisPrinter.attach();
+	</script>
+</body>
+</html>
+

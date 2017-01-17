@@ -8,22 +8,15 @@
 
       <title>EduMaker</title>
       <!-- SCROLLS -->
-      <!-- load bootstrap and fontawesome via CDN -->
-      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
-
+      <link rel="stylesheet" href="//cdn.materialdesignicons.com/1.8.36/css/materialdesignicons.min.css">
+      
+      <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css"/>
       <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro.css">
       <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-responsive.css">
       <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-icons.css">
       <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-ui-light.css">
       <link rel="stylesheet" type="text/css" href="./assets/css/keyboard.css">
       <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
-
-      <style id="stateStyle">.paused{visibility: hidden;}
-         .not_clear{visibility: hidden;}
-         .printing{visibility: hidden;}
-         .not_online{visibility: hidden;}
-      </style>
 
       <!-- SPELLS -->
       <!-- load angular and angular route via CDN -->
@@ -38,62 +31,62 @@
 
    <body ng-controller="mainController" class="bg-color-darken">
       <div id="container">
-         <!--<ul id="keyboard">-->
-         <!--	<li class="symbol"><span class="off">`</span><span class="on">~</span></li>-->
-         <!--	<li class="symbol"><span class="off">1</span><span class="on">!</span></li>-->
-         <!--	<li class="symbol"><span class="off">2</span><span class="on">@</span></li>-->
-         <!--	<li class="symbol"><span class="off">3</span><span class="on">#</span></li>-->
-         <!--	<li class="symbol"><span class="off">4</span><span class="on">$</span></li>-->
-         <!--	<li class="symbol"><span class="off">5</span><span class="on">%</span></li>-->
-         <!--	<li class="symbol"><span class="off">6</span><span class="on">^</span></li>-->
-         <!--	<li class="symbol"><span class="off">7</span><span class="on">&amp;</span></li>-->
-         <!--	<li class="symbol"><span class="off">8</span><span class="on">*</span></li>-->
-         <!--	<li class="symbol"><span class="off">9</span><span class="on">(</span></li>-->
-         <!--	<li class="symbol"><span class="off">0</span><span class="on">)</span></li>-->
-         <!--	<li class="symbol"><span class="off">-</span><span class="on">_</span></li>-->
-         <!--	<li class="symbol"><span class="off">=</span><span class="on">+</span></li>-->
-         <!--	<li class="delete lastitem">delete</li>-->
-         <!--	<li class="tab">tab</li>-->
-         <!--	<li class="letter">q</li>-->
-         <!--	<li class="letter">w</li>-->
-         <!--	<li class="letter">e</li>-->
-         <!--	<li class="letter">r</li>-->
-         <!--	<li class="letter">t</li>-->
-         <!--	<li class="letter">y</li>-->
-         <!--	<li class="letter">u</li>-->
-         <!--	<li class="letter">i</li>-->
-         <!--	<li class="letter">o</li>-->
-         <!--	<li class="letter">p</li>-->
-         <!--	<li class="symbol"><span class="off">[</span><span class="on">{</span></li>-->
-         <!--	<li class="symbol"><span class="off">]</span><span class="on">}</span></li>-->
-         <!--	<li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>-->
-         <!--	<li class="capslock">caps lock</li>-->
-         <!--	<li class="letter">a</li>-->
-         <!--	<li class="letter">s</li>-->
-         <!--	<li class="letter">d</li>-->
-         <!--	<li class="letter">f</li>-->
-         <!--	<li class="letter">g</li>-->
-         <!--	<li class="letter">h</li>-->
-         <!--	<li class="letter">j</li>-->
-         <!--	<li class="letter">k</li>-->
-         <!--	<li class="letter">l</li>-->
-         <!--	<li class="symbol"><span class="off">;</span><span class="on">:</span></li>-->
-         <!--	<li class="symbol"><span class="off">'</span><span class="on">&quot;</span></li>-->
-         <!--	<li class="return lastitem">return</li>-->
-         <!--	<li class="left-shift">shift</li>-->
-         <!--	<li class="letter">z</li>-->
-         <!--	<li class="letter">x</li>-->
-         <!--	<li class="letter">c</li>-->
-         <!--	<li class="letter">v</li>-->
-         <!--	<li class="letter">b</li>-->
-         <!--	<li class="letter">n</li>-->
-         <!--	<li class="letter">m</li>-->
-         <!--	<li class="symbol"><span class="off">,</span><span class="on">&lt;</span></li>-->
-         <!--	<li class="symbol"><span class="off">.</span><span class="on">&gt;</span></li>-->
-         <!--	<li class="symbol"><span class="off">/</span><span class="on">?</span></li>-->
-         <!--	<li class="right-shift lastitem">shift</li>-->
-         <!--	<li class="space lastitem">&nbsp;</li>-->
-         <!--</ul>-->
+<!--         <ul id="keyboard">
+         	<li class="symbol"><span class="off">`</span><span class="on">~</span></li>
+         	<li class="symbol"><span class="off">1</span><span class="on">!</span></li>
+         	<li class="symbol"><span class="off">2</span><span class="on">@</span></li>
+         	<li class="symbol"><span class="off">3</span><span class="on">#</span></li>
+         	<li class="symbol"><span class="off">4</span><span class="on">$</span></li>
+         	<li class="symbol"><span class="off">5</span><span class="on">%</span></li>
+         	<li class="symbol"><span class="off">6</span><span class="on">^</span></li>
+         	<li class="symbol"><span class="off">7</span><span class="on">&amp;</span></li>
+         	<li class="symbol"><span class="off">8</span><span class="on">*</span></li>
+         	<li class="symbol"><span class="off">9</span><span class="on">(</span></li>
+         	<li class="symbol"><span class="off">0</span><span class="on">)</span></li>
+         	<li class="symbol"><span class="off">-</span><span class="on">_</span></li>
+         	<li class="symbol"><span class="off">=</span><span class="on">+</span></li>
+         	<li class="delete lastitem">delete</li>
+         	<li class="tab">tab</li>
+         	<li class="letter">q</li>
+         	<li class="letter">w</li>
+         	<li class="letter">e</li>
+         	<li class="letter">r</li>
+         	<li class="letter">t</li>
+         	<li class="letter">y</li>
+         	<li class="letter">u</li>
+         	<li class="letter">i</li>
+         	<li class="letter">o</li>
+         	<li class="letter">p</li>
+         	<li class="symbol"><span class="off">[</span><span class="on">{</span></li>
+         	<li class="symbol"><span class="off">]</span><span class="on">}</span></li>
+         	<li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>
+         	<li class="capslock">caps lock</li>
+         	<li class="letter">a</li>
+         	<li class="letter">s</li>
+         	<li class="letter">d</li>
+         	<li class="letter">f</li>
+         	<li class="letter">g</li>
+         	<li class="letter">h</li>
+         	<li class="letter">j</li>
+         	<li class="letter">k</li>
+         	<li class="letter">l</li>
+         	<li class="symbol"><span class="off">;</span><span class="on">:</span></li>
+         	<li class="symbol"><span class="off">'</span><span class="on">&quot;</span></li>
+         	<li class="return lastitem">return</li>
+         	<li class="left-shift">shift</li>
+         	<li class="letter">z</li>
+         	<li class="letter">x</li>
+         	<li class="letter">c</li>
+         	<li class="letter">v</li>
+         	<li class="letter">b</li>
+         	<li class="letter">n</li>
+         	<li class="letter">m</li>
+         	<li class="symbol"><span class="off">,</span><span class="on">&lt;</span></li>
+         	<li class="symbol"><span class="off">.</span><span class="on">&gt;</span></li>
+         	<li class="symbol"><span class="off">/</span><span class="on">?</span></li>
+         	<li class="right-shift lastitem">shift</li>
+         	<li class="space lastitem">&nbsp;</li>
+         </ul>-->
 
          <!--TODO , FIX THIS -->
 
@@ -109,54 +102,52 @@
                      <td class="graph_button_alt" onClick="heat('bed', document.heater.t_bed.value)">set</td>
                      <td class="graph_button_alt" onClick="VisPrinter.cmd('M140 S0')">off</td></tr>
 
-                  <tr><td class="graph_button" onClick="document.heater.t_extruder.value = parseInt(document.heater.t_extruder.value) - 10;
-                              if (document.heater.t_extruder.value < 1)
-                                 document.heater.t_extruder.value = 0;
-                              if (testStorage()) {
-                                 localStorage.ext = document.heater.t_extruder.value
-                              }
-                              ;">-10</td>
+                  <tr><td class="graph_button" onClick="document.heater.t_extruder.value = parseInt(document.heater.t_extruder.value) - 10;if (document.heater.t_extruder.value < 1)
+                                           document.heater.t_extruder.value = 0;
+                                        if (testStorage()) {
+                                           localStorage.ext = document.heater.t_extruder.value;
+                                        }
+                                        ;">-10</td>
                      <td class="graph_button" onClick="document.heater.t_extruder.value = parseInt(document.heater.t_extruder.value) - 1;
-                                 if (document.heater.t_extruder.value < 1)
-                                    document.heater.t_extruder.value = 0;
-                                 if (testStorage()) {
-                                    localStorage.ext = document.heater.t_extruder.value
-                                 }
-                                 ;">-1</td>
+                                        if (document.heater.t_extruder.value < 1)
+                                           document.heater.t_extruder.value = 0;
+                                        if (testStorage()) {
+                                           localStorage.ext = document.heater.t_extruder.value;};">-1</td>
                      <td class="graph_button" onClick="document.heater.t_extruder.value = parseInt(document.heater.t_extruder.value) + 1;
-                                 if (testStorage()) {
-                                    localStorage.ext = document.heater.t_extruder.value
-                                 }
-                                 ;">+1</td>
+                                        if (testStorage()) {
+                                           localStorage.ext = document.heater.t_extruder.value;
+                                        }
+                                        ;">+1</td>
                      <td class="graph_button" onClick="document.heater.t_extruder.value = parseInt(document.heater.t_extruder.value) + 10;
-                                 if (testStorage()) {
-                                    localStorage.ext = document.heater.t_extruder.value
-                                 }
-                                 ;">+10</td>
+                                        if (testStorage()) {
+                                           localStorage.ext = document.heater.t_extruder.value;
+                                        }
+                                        ;">+10</td>
                      <td></td>
                      <td class="graph_button" onClick="document.heater.t_bed.value = parseInt(document.heater.t_bed.value) - 10;
-                                 if (document.heater.t_bed.value < 1)
-                                    document.heater.t_bed.value = 0;
-                                 if (testStorage()) {
-                                    localStorage.bet = document.heater.t_bed.value
-                                 }
-                                 ;">-10</td>
+                                        if (document.heater.t_bed.value < 1)
+                                           document.heater.t_bed.value = 0;
+                                        if (testStorage()) {
+                                           localStorage.bet = document.heater.t_bed.value;
+                                        }
+                                        ;">-10</td>
                      <td class="graph_button" onClick="document.heater.t_bed.value = parseInt(document.heater.t_bed.value) - 1;
-                                 if (document.heater.t_bed.value < 1)
-                                    document.heater.t_bed.value = 0;
-                                 if (testStorage()) {
-                                    localStorage.bet = document.heater.t_bed.value
-                                 }
-                                 ;">-1</td>
-                     <td class="graph_button" onClick="document.heater.t_bed.value = parseInt(document.heater.t_bed.value) + 1;if (testStorage()) {
-                                    localStorage.bet = document.heater.t_bed.value
-                                 }
-                                 ;">+1</td>
+                                        if (document.heater.t_bed.value < 1)
+                                           document.heater.t_bed.value = 0;
+                                        if (testStorage()) {
+                                           localStorage.bet = document.heater.t_bed.value;
+                                        }
+                                        ;">-1</td>
+                     <td class="graph_button" onClick="document.heater.t_bed.value = parseInt(document.heater.t_bed.value) + 1;
+                                        if (testStorage()) {
+                                           localStorage.bet = document.heater.t_bed.value;
+                                        }
+                                        ;">+1</td>
                      <td class="graph_button" onClick="document.heater.t_bed.value = parseInt(document.heater.t_bed.value) + 10;
-                                 if (testStorage()) {
-                                    localStorage.bet = document.heater.t_bed.value
-                                 }
-                                 ;">+10</td></tr>
+                                        if (testStorage()) {
+                                           localStorage.bet = document.heater.t_bed.value;
+                                        }
+                                        ;">+10</td></tr>
                </tbody>
             </table>
          </form>
@@ -171,55 +162,46 @@
                      <td></td>
                      <td class="graph_button_alt" onClick="ext('extrude', document.extrusion.distance.value, document.extrusion.feed.value)">extrude</td></tr>
 
-                  <tr><td class="graph_button" onClick="document.extrusion.distance.value = parseInt(document.extrusion.distance.value) - 10;
-                              if (document.extrusion.distance.value < 1)
-                                 document.extrusion.distance.value = 0;
-                              if (testStorage()) {
-                                 localStorage.dis = document.extrusion.distance.value
-                              }
-                              ;">-10</td>
+                  <tr><td class="graph_button" onClick="document.extrusion.distance.value = parseInt(document.extrusion.distance.value) - 10;if (document.extrusion.distance.value < 1)
+                                           document.extrusion.distance.value = 0;
+                                        if (testStorage()) {
+                                           localStorage.dis = document.extrusion.distance.value;
+                                        }
+                                        ;">-10</td>
                      <td class="graph_button" onClick="document.extrusion.distance.value = parseInt(document.extrusion.distance.value) - 1;
-                                 if (document.extrusion.distance.value < 1)
-                                    document.extrusion.distance.value = 0;
-                                 if (testStorage()) {
-                                    localStorage.dis = document.extrusion.distance.value
-                                 }
-                                 ;">-1</td>
+                                        if (document.extrusion.distance.value < 1)
+                                           document.extrusion.distance.value = 0;
+                                        if (testStorage()) {
+                                           localStorage.dis = document.extrusion.distance.value;
+                                        }
+                                        ;">-1</td>
                      <td class="graph_button" onClick="document.extrusion.distance.value = parseInt(document.extrusion.distance.value) + 1;
-                                 if (testStorage()) {
-                                    localStorage.dis = document.extrusion.distance.value
-                                 }
-                                 ;">+1</td>
-                     <td class="graph_button" onClick="document.extrusion.distance.value = parseInt(document.extrusion.distance.value) + 10;
-                                 if (testStorage()) {
-                                    localStorage.dis = document.extrusion.distance.value
-                                 }
-                                 ;">+10</td>
+                                        if (testStorage()) {
+                                           localStorage.dis = document.extrusion.distance.value;
+                                        }
+                                        ;">+1</td>
+                     <td class="graph_button" onClick="document.extrusion.distance.value = parseInt(document.extrusion.distance.value) + 10;if (testStorage()) {
+                                           localStorage.dis = document.extrusion.distance.value;};">+10</td>
                      <td></td>
-                     <td class="graph_button" onClick="document.extrusion.feed.value = parseInt(document.extrusion.feed.value) - 10;
-                                 if (document.extrusion.feed.value < 1)
-                                    document.extrusion.feed.value = 0;
-                                 if (testStorage()) {
-                                    localStorage.fee = document.extrusion.feed.value
-                                 }
-                                 ;">-10</td>
-                     <td class="graph_button" onClick="document.extrusion.feed.value = parseInt(document.extrusion.feed.value) - 1;
-                                 if (document.extrusion.feed.value < 1)
-                                    document.extrusion.feed.value = 0;
-                                 if (testStorage()) {
-                                    localStorage.fee = document.extrusion.feed.value
-                                 }
-                                 ;">-1</td>
+                     <td class="graph_button" onClick="document.extrusion.feed.value = parseInt(document.extrusion.feed.value) - 10;if (document.extrusion.feed.value < 1)
+                                           document.extrusion.feed.value = 0;
+                                        if (testStorage()) {
+                                           localStorage.fee = document.extrusion.feed.value;};">-10</td>
+                     <td class="graph_button" onClick="document.extrusion.feed.value = parseInt(document.extrusion.feed.value) - 1;if (document.extrusion.feed.value < 1)
+                                           document.extrusion.feed.value = 0;if (testStorage()) {
+                                           localStorage.fee = document.extrusion.feed.value;
+                                        }
+                                        ;">-1</td>
                      <td class="graph_button" onClick="document.extrusion.feed.value = parseInt(document.extrusion.feed.value) + 1;
-                                 if (testStorage()) {
-                                    localStorage.fee = document.extrusion.feed.value
-                                 }
-                                 ;">+1</td>
+                                        if (testStorage()) {
+                                           localStorage.fee = document.extrusion.feed.value;
+                                        }
+                                        ;">+1</td>
                      <td class="graph_button" onClick="document.extrusion.feed.value = parseInt(document.extrusion.feed.value) + 10;
-                                 if (testStorage()) {
-                                    localStorage.fee = document.extrusion.feed.value
-                                 }
-                                 ;">+10</td>
+                                        if (testStorage()) {
+                                           localStorage.fee = document.extrusion.feed.value;
+                                        }
+                                        ;">+10</td>
                      <td></td>
                      <td class="graph_button_alt" onClick="ext('retract', document.extrusion.distance.value, document.extrusion.feed.value)">retract</td></tr>
                </tbody>
@@ -236,6 +218,12 @@
          <div class="posi">X: <span id="xpos" class="actual_temp">0.00</span></div>
          <div class="posi">Y: <span id="ypos" class="actual_temp">0.00</span></div>
          <div class="posi">Z: <span id="zpos" class="actual_temp">0.00</span></div>
+
+         <style id="stateStyle">.paused{visibility: hidden;}
+            .not_clear{visibility: hidden;}
+            .printing{visibility: hidden;}
+            .not_online{visibility: hidden;}
+         </style>
 
          <!-- MAIN CONTENT AND INJECTED VIEWS -->
          <div id="main">

@@ -86,7 +86,7 @@ def measurements(g):
         
         Xtot = Xmax - Xmin
         Ytot = Ymax - Ymin
-        Ztot = Zmax - Zmin		
+        Ztot = Zmax - Zmin    	
         
     return (Xtot,Ytot,Ztot,Xmin,Xmax,Ymin,Ymax,Zmin,Zmax)
 
@@ -190,11 +190,11 @@ class Settings:
     def __init__(self):
         # defaults here.
         # the initial value determines the type
-        self.port = ""
-        self.baudrate = 115200
+        self.port = "COM3"
+        self.baudrate = 250000
         self.bedtemp_abs = 110
         self.bedtemp_pla = 60
-        self.temperature_abs = 230
+        self.temperature_abs = 215
         self.temperature_pla = 185
         self.xy_feedrate = 3000
         self.z_feedrate = 200
@@ -247,7 +247,7 @@ class pronsole(cmd.Cmd):
         self.sdfiles=[]
         self.paused=False
         self.sdprinting=0
-        self.temps={"pla":"185","abs":"230","off":"0"}
+        self.temps={"pla":"185","abs":"215","off":"0"}
         self.bedtemps={"pla":"60","abs":"110","off":"0"}
         self.percentdone=0
         self.tempreadings=""
@@ -263,14 +263,14 @@ class pronsole(cmd.Cmd):
         self.settings._bedtemp_pla_cb = self.set_temp_preset
         self.monitoring=0
         self.helpdict = {}
-        self.helpdict["baudrate"] = _("Communications Speed (default: 115200)")
+        self.helpdict["baudrate"] = _("Communications Speed (default: 250000)")
         self.helpdict["bedtemp_abs"] = _("Heated Build Platform temp for ABS (default: 110 deg C)")
         self.helpdict["bedtemp_pla"] = _("Heated Build Platform temp for PLA (default: 60 deg C)")
         self.helpdict["e_feedrate"] = _("Feedrate for Control Panel Moves in Extrusions (default: 300mm/min)")
         self.helpdict["port"] = _("Port used to communicate with printer")
         self.helpdict["slicecommand"] = _("Slice command\n   default:\n       python skeinforge/skeinforge_application/skeinforge_utilities/skeinforge_craft.py $s)")
         self.helpdict["sliceoptscommand"] = _("Slice settings command\n   default:\n       python skeinforge/skeinforge_application/skeinforge.py")
-        self.helpdict["temperature_abs"] = _("Extruder temp for ABS (default: 230 deg C)")
+        self.helpdict["temperature_abs"] = _("Extruder temp for ABS (default: 215 deg C)")
         self.helpdict["temperature_pla"] = _("Extruder temp for PLA (default: 185 deg C)")
         self.helpdict["xy_feedrate"] = _("Feedrate for Control Panel Moves in X and Y (default: 3000mm/min)")
         self.helpdict["z_feedrate"] = _("Feedrate for Control Panel Moves in Z (default: 200mm/min)")
@@ -858,7 +858,7 @@ class pronsole(cmd.Cmd):
         if "T:" in l:
             self.tempreadings=l
         tstring=l.rstrip()
-        if(tstring!="ok" and not tstring.startswith("ok T") and not tstring.startswith("T:") and not self.listing and not self.monitoring):
+        if(tstring!="ok" and not tstring.startswith("T:") and not self.listing and not self.monitoring): #and not tstring.startswith("ok T")
             print tstring
             sys.stdout.write(self.prompt)
             sys.stdout.flush()
@@ -1018,7 +1018,7 @@ class pronsole(cmd.Cmd):
             return []
     
     def do_extrude(self,l,override=None,overridefeed=300):
-        length=5#default extrusion length
+        length=10#default extrusion length
         feed=self.settings.e_feedrate#default speed
         if not self.p.online:
             print "Printer is not online. Unable to move."

@@ -6,10 +6,10 @@ Viewer=function(container) {
 	this.moveSpeed=.001;
 	this.zoomSpeed=.002;
 	
-	this.angleX = 20;
-	this.angleY = 20;
-	this.posX=0;
-	this.posY=0;
+	this.angleX = -45;
+	this.angleY = 0;
+	this.posX=30;
+	this.posY=-50;
 	this.posZ=5;
 
 	// Get a new WebGL canvas
@@ -103,7 +103,8 @@ Viewer=function(container) {
 	this.showAll=function(){
 		if(!this.mesh) return;
 		var sphere=this.mesh.getBoundingSphere();
-		this.posZ=sphere.radius*3;
+		this.posZ=sphere.radius*2;
+		//this.posY=sphere.center.y;//(sphere.radius/2)*-1;
 	}
 
 	var that = this;
@@ -126,11 +127,13 @@ Viewer=function(container) {
 		}
 	};
 
+	// mouse wheel zoom
 	gl.canvas.addEventListener('mousewheel',function(event){
 		var delta=1-event.wheelDelta*that.zoomSpeed;
 		that.posZ*=delta;
 		that.gl.ondraw();
 	});
+	
 
 	this.ondraws=[];
 
@@ -176,5 +179,4 @@ Viewer=function(container) {
 	window.addEventListener("resize",function(){that.resize()},false);    
 	this.resize();
 }
-
 

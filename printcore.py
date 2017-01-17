@@ -30,6 +30,8 @@ class printcore():
         self.clear=0 #clear to send, enabled after responses
         self.online=False #The printer has responded to the initial command and is active
         self.printing=False #is a print currently running, true if printing, false if paused
+        self.starttime=0
+        self.offset=0
         self.mainqueue=[] 
         self.priqueue=[]
         self.queueindex=0
@@ -168,6 +170,8 @@ class printcore():
         if(self.printing or not self.online or not self.printer):
             return False
         self.printing=True
+        self.starttime=time.time()
+        self.offset=0
         self.mainqueue=[]+data
         self.lineno=0
         self.queueindex=0
@@ -236,6 +240,7 @@ class printcore():
         #callback for printing done
         
     def _sendnext(self):
+        global time
         if(not self.printer):
             return
         while not self.clear:
@@ -256,6 +261,9 @@ class printcore():
             return
         if(self.printing and self.queueindex<len(self.mainqueue)):
             tline=self.mainqueue[self.queueindex]
+            if(self.offset == 0):
+                if("G1" in tline and "X" in tline and "E" in tline):
+                    self.offset=time.time()-self.starttime
             tline=tline.split(";")[0]
             if(len(tline)>0):
                 self._send(tline,self.lineno,True)

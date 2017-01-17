@@ -1,15 +1,9 @@
-.win-commandicon {
+.mdi {
   display: table-cell !important;
   vertical-align: middle !important;
   font-size: 10vw;
   color: #0099CC;
-}
-
-.material-icons {
-  display: table-cell !important;
-  vertical-align: middle !important;
-  font-size: 10vw;
-  color: #0099CC;
+  line-height: normal;
 }
 
 svg {
@@ -160,6 +154,15 @@ a {
  height:40vw; 
 }
 
-#footerError{
+#footerError {
   font-size: 2vw
+}
+
+#settingsConsole {
+	width: 100%;
+	height: 100%;
+	border: none;
+	overflow: hidden;
+	user-select: none;
+	background: none;
 }
