@@ -103,7 +103,7 @@ printerface.controller('homeController', function($scope, progress) {
         },
         {
             name: "Settings",
-                            icon: "settings",
+            icon: "settings",
             //icon: "printer-settings",
             href: "#settings"
         },
@@ -207,8 +207,8 @@ printerface.controller('printController', function($scope) {
             name: "Print Settings",
             icon: "settings",
             href: "#print"
-        },
-    ]
+        }
+    ];
 
 });
 
@@ -244,7 +244,7 @@ printerface.controller('settingsController', function($scope) {
             href: "#settings",
             gcode: ""
         }
-    ]
+    ];
 
 });
 

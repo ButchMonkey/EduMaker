@@ -1,3 +1,5 @@
+/* global Printer */
+
 var percent = 0;
 var seconds = 0;
 var offset = 0;
@@ -6,7 +8,7 @@ var gltest;
 function getCookieValue(cookieName)
 {
  var value=null;
- if(document.cookie != "") 
+ if(document.cookie !== "") 
  {
   cookieName=cookieName+"=";
   
@@ -377,7 +379,6 @@ Printer=new function(){
 				} else if(line!='ok'){
 					// echo printer output to console textarea
 					this.console.value+=line+"\n";
-					console.debug(line)
 					this.console.scrollTop=this.console.scrollHeight;
 				}
 		}
@@ -421,7 +422,7 @@ Printer=new function(){
 //		}
 		
 		
-		this.console=document.getElementById('console');
+		this.console=document.getElementById('settingsConsole');
 		var Printer=this;
 		restoreValues();
 		this.check();

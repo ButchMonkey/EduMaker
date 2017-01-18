@@ -4,6 +4,7 @@ var percent = 0;
 var seconds = 0;
 var offset = 0;
 var gltest;
+var Printer;
 
 //Dont have tabs
 //function tabs(activeTab, targetTab) {
@@ -679,7 +680,7 @@ printerface.controller('mainController', function ($scope, progress) {
 
 
 //         this.console = document.getElementById('console');
-         var Printer = this;
+         Printer = this;
          restoreValues();
          this.check();
          this.checkState();

@@ -72,14 +72,14 @@ printerface.controller('homeController', function ($scope, progress) {
       },
       {
          name: "Logout",
-         icon: "keyboard_arrow_left",
+         icon: "arrow-left",
          href: "#users"
                  //ng-click
       },
       {
          name: "Print",
          // icon: "printer",
-         icon: "print",
+         icon: "printer",
          href: "#print",
       },
       // {
@@ -89,14 +89,14 @@ printerface.controller('homeController', function ($scope, progress) {
       // },
       {
          name: "Control",
-         icon: "open_with",
+         icon: "cursor-move",
          href: "#control"
       },
       {
          name: "Settings",
          icon: "settings",
          href: "#settings"
-      },
+      }
    ];
    $scope.logout = function () {
       userPerm.admin = false;
@@ -188,32 +188,32 @@ printerface.controller('printController', function ($scope) {
    //$scope.html = "<div style=\"height:0px;overflow:hidden\"><input type=\"file\" id=\"fileInput\" name=\"fileInput\" accept=\".gcode\" onchange=\"alert('Upload')\" /></div>";
    $scope.icons = [
       {
-         name: "Choose File",
-         icon: "folder",
-         href: "#print",
+          name: "Choose File",
+          icon: "folder",
+          href: "#print",
       },
       {
-         name: "Back",
-         icon: "keyboard_arrow_left",
-         href: "#"
+          name: "Back",
+          icon: "arrow-left",
+          href: "#"
       },
       {
-         name: "Print",
-         icon: "print",
-         href: "#print",
-         gcode: "print"
+          name: "Print",
+          icon: "printer",
+          href: "#print",
+          gcode: "print"
       },
       {
-         name: "Print History",
-         icon: "help_outline",
-         href: "#print"
+          name: "Print History",
+          icon: "restore",
+          href: "#print"
       },
       {
-         name: "Print Settings",
-         icon: "settings",
-         href: "#print"
-      },
-   ]
+          name: "Print Settings",
+          icon: "settings",
+          href: "#print"
+      }
+   ];
 
 });
 
@@ -222,48 +222,34 @@ printerface.controller('settingsController', function ($scope) {
    $scope.title = 'Settings';
 
    $scope.icons = [
-      {
-         name: "Home X",
-         icon: "folder",
-         href: "#settings",
-         gcode: "G28 X0",
-      },
-      {
-         name: "Back",
-         icon: "keyboard_arrow_left",
-         href: "#"
-      },
-      {
-         name: "Console",
-         href: "#settings"
-      },
-      {
-         name: "Home All",
-         icon: "printer",
-         href: "#settings",
-         gcode: "G28"
-      },
-      {
-         name: "X + 10",
-         icon: "printer",
-         href: "#settings",
-         gcode: "move",
-         axis: "X",
-         distance: "10"
-      },
-      {
-         name: "Y + 10",
-         icon: "printer",
-         href: "#settings",
-         gcode: "G28"
-      },
-      {
-         name: "Z + 10",
-         icon: "printer",
-         href: "#settings",
-         gcode: "G28"
-      },
-   ]
+        {
+            name: "",
+            icon: "blank",
+            href: "#settings",
+            gcode: "",
+        },
+        {
+            name: "Back",
+            icon: "arrow-left",
+            href: "#"
+        },
+        {
+            name: "Console",
+                            href: "#settings"
+        },
+        {
+            name: "",
+            icon: "blank",
+            href: "#settings",
+            gcode: ""
+        },
+        {
+            name: "",
+            icon: "blank",
+            href: "#settings",
+            gcode: ""
+        }
+    ];
 
 });
 
@@ -273,55 +259,59 @@ printerface.controller('controlController', function ($scope) {
 
    $scope.icons = [
       {
-         name: "Home X",
-         icon: "folder",
-         href: "#control",
-         gcode: "G28 X0",
+          name: "Home X + Y",
+          icon: "home",
+          href: "#control",
+          gcode: "G28 X Y ",
       },
       {
-         name: "Home Y",
-         // icon: "keyboard_arrow_left",
-         href: "#control",
-         gcode: "G28 Y0",
+          name: "Home Z",
+          icon: "home",
+          href: "#control",
+          gcode: "G28 Z0"
       },
       {
-         name: "Home Z",
-         icon: "printer",
-         href: "#control",
-         gcode: "G28 Z0"
+          name: "Home All",
+          icon: "home",
+          href: "#control",
+          gcode: "G28"
+      },
+                  {
+          name: "Motors Off",
+          icon: "close-circle",
+          href: "#control",
+          gcode: "M18",
       },
       {
-         name: "Home All",
-         icon: "printer",
-         href: "#control",
-         gcode: "G28"
+          name: "Back",
+          icon: "arrow-left",
+          href: "#"
       },
       {
-         name: "Back",
-         icon: "keyboard_arrow_left",
-         href: "#"
+          name: "X + 10",
+          icon: "chevron-right",
+          href: "#control",
+          gcode: "move",
+          axis: "X",
+          distance: "10"
       },
       {
-         name: "X + 10",
-         icon: "printer",
-         href: "#control",
-         gcode: "move",
-         axis: "X",
-         distance: "10"
+          name: "Y - 10",
+          icon: "chevron-down",
+          href: "#control",
+          gcode: "move",
+          axis: "Y",
+          distance: "-10"
       },
       {
-         name: "Y + 10",
-         icon: "printer",
-         href: "#control",
-         gcode: "G28"
-      },
-      {
-         name: "Z + 10",
-         icon: "printer",
-         href: "#control",
-         gcode: "G28"
-      },
-   ]
+          name: "Z + 10",
+          icon: "printer",
+          href: "#control",
+          gcode: "move",
+          axis: "Z",
+          distance: "10"
+      }
+  ];
 
 });
 
@@ -330,17 +320,18 @@ printerface.controller('usersController', function ($scope, $location, userPerm)
    $scope.title = 'Users';
 
    $scope.users = [
-      {
-         name: "Admin",
-         icon: "user",
-         password: "password",
-         isAdmin: true
-      },
-      {
-         name: "Guest",
-         icon: "user-outline",
-      }
-   ]
+       {
+           name: "Admin",
+           icon: "account",
+           password: "password",
+           isAdmin: true
+       },
+       {
+           name: "Guest",
+           icon: "account-outline",
+       }
+   ];
+   
    $scope.login = function (user) {
       if (user.password) {
          var enteredPass = prompt("Please enter your password")
