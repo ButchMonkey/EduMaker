@@ -80,7 +80,7 @@ printerface.controller('homeController', function ($scope, progress) {
          name: "Print",
          // icon: "printer",
          icon: "printer",
-         href: "#print",
+         href: "#print"
       },
       // {
       //     name: "Help",
@@ -104,7 +104,8 @@ printerface.controller('homeController', function ($scope, progress) {
 
    function setStatus() {
       // if(!Printer.connnected){
-      if (true) {
+      if (true)
+      {
          Printer.cmd('connect');
          Printer.check();
          //return "<button class='btn' onclick='alert(\"Connecting\");Printer.connect();'>Connect</button>";
@@ -128,18 +129,19 @@ printerface.controller('homeController', function ($scope, progress) {
          case "move":
             console.log('Move');
 
-            if (axis == undefined || distance == undefined) {
-               alert("Undefined Variable in Move command")
+            if (axis === undefined || distance === undefined)
+            {
+               alert("Undefined Variable in Move command");
             }
             var feed = '';
             Printer.cmd('G91');
-            if (axis == 'Z') {
+            if (axis === 'Z') {
                feed = '300';
             } else {
                feed = '3000';
             }
             window.setTimeout(function () {
-               Printer.cmd('G1 ' + axis + distance + ' F' + feed)
+               Printer.cmd('G1 ' + axis + distance + ' F' + feed);
             }, 50);
             break;
          case "heat":
@@ -152,33 +154,29 @@ printerface.controller('homeController', function ($scope, progress) {
          case undefined:
             break;
          default:
-            if (gcode) {
+            if (gcode)
+            {
                Printer.cmd(gcode);
             }
             break;
 
       }
 
-   }
+   };
 
    angular.element(document).ready(function () {
 
-      $('#console').off('change')
+      $('#console').off('change');
 
       $('#console').bind('input propertychange', function () {
-         document.getElementById('settingsConsole').value = document.getElementById('console').value
-      })
+         document.getElementById('settingsConsole').value = document.getElementById('console').value;
+      });
 
       $('#connectionButtons').html(setStatus());
 
       Printer.attach();
       Printer.connect();
-
-
-
-
-
-   })
+   });
 
 });
 
@@ -190,7 +188,7 @@ printerface.controller('printController', function ($scope) {
       {
           name: "Choose File",
           icon: "folder",
-          href: "#print",
+          href: "#print"
       },
       {
           name: "Back",
@@ -226,7 +224,7 @@ printerface.controller('settingsController', function ($scope) {
             name: "",
             icon: "blank",
             href: "#settings",
-            gcode: "",
+            gcode: ""
         },
         {
             name: "Back",
@@ -235,7 +233,7 @@ printerface.controller('settingsController', function ($scope) {
         },
         {
             name: "Console",
-                            href: "#settings"
+            href: "#settings"
         },
         {
             name: "",
@@ -262,7 +260,7 @@ printerface.controller('controlController', function ($scope) {
           name: "Home X + Y",
           icon: "home",
           href: "#control",
-          gcode: "G28 X Y ",
+          gcode: "G28 X Y "
       },
       {
           name: "Home Z",
@@ -280,7 +278,7 @@ printerface.controller('controlController', function ($scope) {
           name: "Motors Off",
           icon: "close-circle",
           href: "#control",
-          gcode: "M18",
+          gcode: "M18"
       },
       {
           name: "Back",
@@ -328,19 +326,19 @@ printerface.controller('usersController', function ($scope, $location, userPerm)
        },
        {
            name: "Guest",
-           icon: "account-outline",
+           icon: "account-outline"
        }
    ];
    
    $scope.login = function (user) {
       if (user.password) {
-         var enteredPass = prompt("Please enter your password")
-         if (enteredPass == user.password) {
+         var enteredPass = prompt("Please enter your password");
+         if (enteredPass === user.password) {
             if (user.isAdmin) {
                userPerm.admin = true;
             }
-            $location.url("/")
+            $location.url("/");
          }
       }
-   }
+   };
 });

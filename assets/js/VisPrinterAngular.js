@@ -5,7 +5,6 @@ var seconds = 0;
 var offset = 0;
 var gltest;
 var Printer;
-
 //Dont have tabs
 //function tabs(activeTab, targetTab) {
 //   // change active container
@@ -39,6 +38,7 @@ var Printer;
 //}
 
 printerface.controller('mainController', function ($scope, progress) {
+   $scope.console = "testing";
    $scope.heater = {
       extruder: '',
       bed: ''
@@ -180,8 +180,8 @@ printerface.controller('mainController', function ($scope, progress) {
    //Best thing to do 1st is take out any variables/functions that arent displayed
    //in the html. There is no need for them to be here if they dont need the scope.
    // the main reprap printer UI controller
-   Printer = new function () {
-
+  Printer = function () {
+      var self = this;
       // if the server is currently connected to a printer
       this.connected = false;
 
@@ -340,7 +340,7 @@ printerface.controller('mainController', function ($scope, progress) {
          window.setTimeout(function (e) {
             Printer.checkState();
          }, 1000);
-      }
+      };
 
       // callback to handle a state report from the server
       this.onState = function (response)
@@ -680,7 +680,7 @@ printerface.controller('mainController', function ($scope, progress) {
 
 
 //         this.console = document.getElementById('console');
-         Printer = this;
+//         Printer = this;
          restoreValues();
          this.check();
          this.checkState();
@@ -688,4 +688,5 @@ printerface.controller('mainController', function ($scope, progress) {
       };
    };
    
+   Printer = new Printer();
 });
